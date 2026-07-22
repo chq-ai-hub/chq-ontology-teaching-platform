@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=no">
+<title>本体论与知识图谱 · 教学平台</title>
+<meta name="theme-color" content="#0b0b0c">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+SC:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="./js/teacher-auth.js" defer></script>
+<style>
+:root{
+  --bg:#0b0b0c;--bg-1:#161618;--bg-2:#1f1f23;--bg-3:#2a2a30;
+  --ink:#f4f4f4;--text-dim:#a8a8b0;--text-faint:#6b6b75;
+  --border:#2e2e35;--border-strong:#3e3e45;
+  --accent:#4589ff;--accent-2:#78a9ff;--accent-soft:rgba(69,137,255,.14);
+  --success:#42be65;--warning:#f1c21b;--danger:#fa4d56;--interactive:#c08bff;
+  --font-main:'Inter','Noto Sans SC',system-ui,-apple-system,sans-serif;
+  --font-mono:'JetBrains Mono','IBM Plex Mono',ui-monospace,Consolas,monospace;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;background:var(--bg);color:var(--ink);font-family:var(--font-main);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+body{display:flex;flex-direction:column;min-height:100vh;position:relative}
+
+/* 网格背景 */
+body::before{
+  content:'';position:fixed;inset:0;z-index:0;
+  background-image:linear-gradient(rgba(69,137,255,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(69,137,255,.04) 1px,transparent 1px);
+  background-size:48px 48px;pointer-events:none;
+  mask-image:radial-gradient(ellipse at center,black,transparent 70%);
+  -webkit-mask-image:radial-gradient(ellipse at center,black,transparent 70%);
+}
+body::after{
+  content:'';position:fixed;top:-200px;right:-200px;width:600px;height:600px;
+  background:radial-gradient(circle,var(--accent-soft),transparent 60%);
+  pointer-events:none;filter:blur(40px);z-index:0;
+}
+
+/* 顶栏 */
+.topbar{position:relative;display:flex;align-items:center;justify-content:space-between;padding:24px 40px;z-index:2}
+.brand{display:flex;align-items:center;gap:12px;font-size:13px;color:var(--text-dim);letter-spacing:.5px}
+.brand .dot{width:9px;height:9px;background:var(--accent);border-radius:2px;box-shadow:0 0 14px var(--accent)}
+.brand b{color:var(--ink);font-weight:600}
+.teacher-badge{font-family:var(--font-mono);font-size:11px;background:var(--bg-2);border:1px solid var(--border);padding:5px 12px;border-radius:20px;color:var(--text-faint);cursor:pointer;transition:all .2s}
+.teacher-badge:hover{color:var(--accent-2);border-color:rgba(69,137,255,.35)}
+body.teacher-unlocked .teacher-badge{color:var(--success);border-color:rgba(66,190,101,.3)}
+
+/* Hero */
+.hero{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:60px 24px 40px;text-align:center;position:relative;z-index:2}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;padding:6px 16px;background:var(--accent-soft);border:1px solid rgba(69,137,255,.3);border-radius:100px;font-size:12px;letter-spacing:.6px;color:var(--accent-2);margin-bottom:32px;animation:fadeIn 1s ease}
+.hero-badge .pulse{width:8px;height:8px;background:var(--accent);border-radius:50%;animation:pulseRing 2s infinite}
+@keyframes pulseRing{0%{box-shadow:0 0 0 0 rgba(69,137,255,.6)}70%{box-shadow:0 0 0 12px rgba(69,137,255,0)}100%{box-shadow:0 0 0 0 rgba(69,137,255,0)}}
+h1{font-size:clamp(32px,5vw,56px);font-weight:700;line-height:1.15;letter-spacing:-1px;margin-bottom:18px;background:linear-gradient(180deg,#fff 30%,#b8b8c0 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;animation:fadeIn 1s ease .1s both}
+.subtitle{font-size:clamp(15px,1.5vw,18px);color:var(--text-dim);max-width:640px;line-height:1.7;margin-bottom:40px;animation:fadeIn 1s ease .2s both}
+.subtitle b{color:var(--ink);font-weight:500}
+@keyframes fadeIn{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+
+/* 标签云 */
+.tags{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;max-width:720px;margin-bottom:50px;animation:fadeIn 1s ease .3s both}
+.tags span{font-size:12px;padding:5px 12px;background:var(--bg-2);border:1px solid var(--border);border-radius:4px;color:var(--text-dim)}
+
+/* 入口卡片 */
+.entry-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;max-width:840px;width:100%;margin:0 auto 40px;animation:fadeIn 1s ease .4s both}
+.entry-card{display:flex;flex-direction:column;gap:8px;padding:28px 28px;background:linear-gradient(180deg,var(--bg-2),var(--bg-1));border:1px solid var(--border);border-radius:14px;text-decoration:none;color:inherit;transition:all .25s;position:relative;overflow:hidden}
+.entry-card:hover{border-color:var(--accent);background:linear-gradient(180deg,rgba(69,137,255,.08),var(--bg-1));transform:translateY(-3px);box-shadow:0 8px 24px rgba(69,137,255,.12)}
+.entry-card .ico{font-size:32px;margin-bottom:8px}
+.entry-card .card-label{font-family:var(--font-mono);font-size:10px;letter-spacing:2px;color:var(--accent);text-transform:uppercase;margin-bottom:4px}
+.entry-card .card-title{font-size:20px;font-weight:600;color:var(--ink);margin-bottom:6px}
+.entry-card .card-desc{font-size:13px;color:var(--text-dim);line-height:1.6}
+.entry-card .card-cta{margin-top:14px;font-size:12px;color:var(--accent-2);font-family:var(--font-mono);letter-spacing:.5px}
+.entry-card .card-cta::after{content:' →';transition:transform .2s}
+.entry-card:hover .card-cta::after{transform:translateX(4px)}
+
+/* 教师锁定提示 */
+.entry-card.locked{opacity:.6;pointer-events:none}
+.entry-card .lock-overlay{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(11,11,12,.7);backdrop-filter:blur(4px);border-radius:14px;font-size:13px;color:var(--text-dim);z-index:5}
+body.teacher-unlocked .entry-card.locked{opacity:1;pointer-events:auto}
+body.teacher-unlocked .lock-overlay{display:none}
+
+/* 信息卡片 */
+.info{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;max-width:760px;width:100%;margin:0 auto;animation:fadeIn 1s ease .5s both}
+.info-card{background:var(--bg-2);border:1px solid var(--border);border-radius:10px;padding:18px 20px;text-align:left}
+.info-card .label{font-size:10px;text-transform:uppercase;letter-spacing:1.4px;color:var(--text-faint);font-family:var(--font-mono);margin-bottom:6px}
+.info-card .value{font-size:15px;font-weight:500}
+.info-card .sub{font-size:12px;color:var(--text-dim);margin-top:2px}
+
+/* 教师解锁弹窗 */
+.auth-modal{position:fixed;inset:0;background:rgba(0,0,0,.8);backdrop-filter:blur(8px);z-index:1000;display:none;align-items:center;justify-content:center}
+.auth-modal.show{display:flex}
+.auth-box{background:var(--bg-1);border:1px solid var(--border);border-radius:16px;padding:36px 32px;max-width:380px;width:90%;text-align:center}
+.auth-box h3{font-size:18px;font-weight:600;margin-bottom:8px}
+.auth-box p{font-size:13px;color:var(--text-dim);margin-bottom:20px}
+.auth-box input{width:100%;padding:12px 16px;background:var(--bg);border:1px solid var(--border);border-radius:8px;color:var(--ink);font-size:14px;font-family:var(--font-mono);margin-bottom:12px;outline:none;transition:border-color .2s}
+.auth-box input:focus{border-color:var(--accent)}
+.auth-box .auth-btns{display:flex;gap:8px}
+.auth-box button{flex:1;padding:11px;border-radius:8px;font-size:14px;font-weight:500;cursor:pointer;border:none;transition:all .2s}
+.auth-box .btn-unlock{background:var(--accent);color:#fff}
+.auth-box .btn-unlock:hover{background:#3a76e0}
+.auth-box .btn-cancel{background:var(--bg-3);color:var(--text-dim)}
+.auth-box .btn-cancel:hover{background:var(--border)}
+.auth-box .auth-hint{margin-top:14px;font-size:11px;color:var(--text-faint);font-family:var(--font-mono)}
+.auth-box .auth-error{color:var(--danger);font-size:12px;margin-top:8px;display:none}
+.auth-box .auth-error.show{display:block}
+
+/* 底部 */
+footer{position:relative;z-index:2;padding:24px 40px;text-align:center;border-top:1px solid var(--border);background:rgba(11,11,12,.6);backdrop-filter:blur(8px);font-size:12px;color:var(--text-faint);letter-spacing:.3px}
+footer b{color:var(--text-dim);font-weight:500}
+
+/* 响应式 */
+@media(max-width:680px){
+  .topbar{padding:18px 20px;padding-top:calc(18px + env(safe-area-inset-top))}
+  .info{grid-template-columns:1fr}
+  .entry-grid{grid-template-columns:1fr}
+  .hero{padding:40px 20px 30px}
+  footer{padding:18px 20px;padding-bottom:calc(18px + env(safe-area-inset-bottom))}
+  h1{font-size:clamp(26px,7vw,42px)}
+  .entry-card{padding:22px 20px}
+  .entry-card .card-title{font-size:17px}
+  .tags span{font-size:11px;padding:4px 10px}
+  .teacher-badge{font-size:10px;padding:4px 10px}
+}
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="brand">
+    <span class="dot"></span>
+    <span><b>OntoFlow</b> · 本体论与知识图谱教学平台</span>
+  </div>
+  <div class="teacher-badge" id="teacherStatus" onclick="showAuthModal()">🔒 教师未解锁</div>
+</header>
+
+<main class="hero">
+  <div class="hero-badge">
+    <span class="pulse"></span>
+    本体论与知识图谱 · 互动教学课件
+  </div>
+  <h1>让 AI 真正"懂"你的行业</h1>
+  <p class="subtitle">
+    <b>Ontology & Knowledge Graph Teaching Platform</b><br>
+    从理论到实践，7个模块、42张幻灯片、4个互动演示
+  </p>
+  <div class="tags">
+    <span>本体论</span><span>知识图谱</span><span>三元组</span><span>RAG</span>
+    <span>Schema建模</span><span>聚合函数</span><span>派生函数</span><span>行动函数</span>
+    <span>五阶段进化</span><span>OntoFlow</span><span>Palantir对比</span><span>动手实践</span>
+  </div>
+
+  <div class="entry-grid">
+    <!-- 课件入口 -->
+    <a class="entry-card" href="./courseware.html">
+      <div class="card-label">COURSEWARE</div>
+      <div class="ico">📺</div>
+      <div class="card-title">课程课件</div>
+      <div class="card-desc">42张幻灯片，Reveal.js驱动。教师按 S 键打开 Speaker View 看演讲话术，学生端纯净观看。</div>
+      <div class="card-cta">进入课件</div>
+    </a>
+
+    <!-- 知识库平台入口 -->
+    <a class="entry-card" href="./ontology-platform.html">
+      <div class="card-label">INTERACTIVE PLATFORM</div>
+      <div class="ico">🔬</div>
+      <div class="card-title">知识图谱平台</div>
+      <div class="card-desc">互动式本体建模工具，力导图可视化、节点编辑、关系推理、函数演示。</div>
+      <div class="card-cta">打开平台</div>
+    </a>
+  </div>
+
+  <div class="info">
+    <div class="info-card">
+      <div class="label">INSTRUCTOR</div>
+      <div class="value">陳宏强 Richard Chen</div>
+      <div class="sub">IBM 生成式AI解决方案架构师兼BD</div>
+    </div>
+    <div class="info-card">
+      <div class="label">DURATION</div>
+      <div class="value">90 分钟</div>
+      <div class="sub">7 个模块 · 42 张幻灯片</div>
+    </div>
+    <div class="info-card">
+      <div class="label">INTERACTIVE</div>
+      <div class="value">4 个演示</div>
+      <div class="sub">KG · 本体建模 · 函数 · 决策</div>
+    </div>
+  </div>
+</main>
+
+<!-- 教师解锁弹窗 -->
+<div class="auth-modal" id="authModal">
+  <div class="auth-box">
+    <h3>👨‍🏫 教师身份验证</h3>
+    <p>输入教师访问码以解锁教师专属功能</p>
+    <input type="password" id="authInput" placeholder="输入教师访问码" onkeydown="if(event.key==='Enter')tryUnlock()">
+    <div class="auth-error" id="authError">密码错误，请重试</div>
+    <div class="auth-btns">
+      <button class="btn-cancel" onclick="hideAuthModal()">取消</button>
+      <button class="btn-unlock" onclick="tryUnlock()">解锁</button>
+    </div>
+    <div class="auth-hint">提示：Ctrl+K 快捷解锁 · 解锁后全站通行</div>
+  </div>
+</div>
+
+<footer>
+  © 2026 OntoFlow · 本体论与知识图谱教学平台 · 教学专用
+</footer>
+
+<script>
+function showAuthModal(){
+  document.getElementById('authModal').classList.add('show');
+  setTimeout(()=>document.getElementById('authInput').focus(),100);
+}
+function hideAuthModal(){
+  document.getElementById('authModal').classList.remove('show');
+  document.getElementById('authInput').value='';
+  document.getElementById('authError').classList.remove('show');
+}
+function tryUnlock(){
+  var input=document.getElementById('authInput');
+  var err=document.getElementById('authError');
+  if(window.TeacherAuth && TeacherAuth.unlock(input.value)){
+    hideAuthModal();
+    updateTeacherUI();
+  }else{
+    err.classList.add('show');
+    input.select();
+  }
+}
+function updateTeacherUI(){
+  var badge=document.getElementById('teacherStatus');
+  if(TeacherAuth.isTeacher()){
+    badge.textContent='✓ 教师已解锁';
+    badge.onclick=function(){ if(confirm('退出教师模式？')){TeacherAuth.logout();} };
+  }else{
+    badge.textContent='🔒 教师未解锁';
+    badge.onclick=showAuthModal;
+  }
+}
+document.addEventListener('DOMContentLoaded',updateTeacherUI);
+document.addEventListener('teacher-auth-change',updateTeacherUI);
+document.addEventListener('keydown',function(e){
+  if(e.ctrlKey&&e.key==='k'){e.preventDefault();if(!TeacherAuth.isTeacher())showAuthModal();}
+});
+</script>
+</body>
+</html>
