@@ -50,77 +50,77 @@ body.teacher-unlocked #teacherOverlay{display:none}
 .sc-cv h2{color:var(--text-dim);font-size:1.2em;font-weight:400;margin-bottom:40px}
 .sc-cv .meta{display:flex;gap:30px;justify-content:center;flex-wrap:wrap;font-family:var(--font-mono);font-size:12px;color:var(--text-faint)}
 .sc-cv .meta b{color:var(--text-dim);font-weight:500;margin-right:4px}
-.sc-content{padding:24px 44px;max-width:1100px;margin:0 auto}
-.sc-content .ch{margin-bottom:20px}
-.sc-content .ch .ctx{font-family:var(--font-mono);font-size:11px;letter-spacing:2.5px;color:var(--accent);margin-bottom:12px;text-transform:uppercase}
-.sc-content .ch h2{font-size:1.45em;margin:0 0 10px;line-height:1.15}
-.sc-content .ch .sub{color:var(--text-dim);font-size:.82em;line-height:1.6;max-width:860px}
+.sc-content{padding:20px 40px;max-width:1100px;margin:0 auto;height:100%;overflow:hidden;box-sizing:border-box}
+.sc-content .ch{margin-bottom:14px}
+.sc-content .ch .ctx{font-family:var(--font-mono);font-size:10px;letter-spacing:2.5px;color:var(--accent);margin-bottom:8px;text-transform:uppercase}
+.sc-content .ch h2{font-size:1.35em;margin:0 0 6px;line-height:1.2}
+.sc-content .ch .sub{color:var(--text-dim);font-size:.78em;line-height:1.5;max-width:860px}
 .sc-chapter{display:flex!important;flex-direction:column;justify-content:center;height:100%;padding:0 60px}
-.sc-chapter .cn{font-family:var(--font-mono);font-size:14px;letter-spacing:3px;color:var(--accent);margin-bottom:22px}
-.sc-chapter h2{font-size:2em;margin-bottom:16px;line-height:1.1}
-.sc-chapter .sub{color:var(--text-dim);font-size:.9em;line-height:1.7;max-width:800px}
-.sc-chapter .cm{margin-top:30px;display:flex;gap:10px;flex-wrap:wrap}
+.sc-chapter .cn{font-family:var(--font-mono);font-size:13px;letter-spacing:3px;color:var(--accent);margin-bottom:18px}
+.sc-chapter h2{font-size:1.9em;margin-bottom:12px;line-height:1.1}
+.sc-chapter .sub{color:var(--text-dim);font-size:.85em;line-height:1.6;max-width:800px}
+.sc-chapter .cm{margin-top:22px;display:flex;gap:10px;flex-wrap:wrap}
 .badge{display:inline-block;padding:3px 10px;border-radius:6px;font-size:11px;font-weight:600;letter-spacing:.5px;background:var(--bg-3);color:var(--text-dim);border:1px solid var(--border)}
 .badge.accent{background:var(--accent-soft);color:var(--accent-2);border-color:rgba(69,137,255,.3)}
 .badge.warn{background:rgba(241,194,27,.1);color:var(--warning);border-color:rgba(241,194,27,.3)}
 .pts{list-style:none;padding:0;margin:0;max-width:880px}
-.pts li{display:grid;grid-template-columns:50px 1fr;gap:12px;align-items:flex-start;padding:8px 0;border-bottom:1px solid var(--border);font-size:.85em;line-height:1.5;color:var(--ink)}
+.pts li{display:grid;grid-template-columns:46px 1fr;gap:10px;align-items:flex-start;padding:6px 0;border-bottom:1px solid var(--border);font-size:.82em;line-height:1.45;color:var(--ink)}
 .pts li:last-child{border-bottom:0}
-.pts li .n{font-family:var(--font-mono);font-size:12px;color:var(--accent);letter-spacing:1px;padding-top:3px}
+.pts li .n{font-family:var(--font-mono);font-size:11px;color:var(--accent);letter-spacing:1px;padding-top:2px}
 .pts li b{color:#fff;font-weight:600}
-.pts li .ex{color:var(--text-dim);font-size:.88em;margin-top:3px;display:block}
-.c3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;max-width:1100px}
-.cd{padding:16px;background:var(--bg-2);border:1px solid var(--border);border-radius:10px;transition:all .2s}
+.pts li .ex{color:var(--text-dim);font-size:.85em;margin-top:2px;display:block}
+.c3{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;max-width:1100px}
+.cd{padding:12px 14px;background:var(--bg-2);border:1px solid var(--border);border-radius:10px;transition:all .2s}
 .cd:hover{border-color:var(--border-strong);transform:translateY(-2px)}
-.cd .ic{font-size:26px;margin-bottom:10px}
-.cd h3{font-size:1.05em;margin:0 0 8px}
-.cd p{color:var(--text-dim);font-size:.83em;line-height:1.5;margin:3px 0 0}
-.cd .ft{margin-top:8px;padding-top:8px;border-top:1px dashed var(--border);font-family:var(--font-mono);font-size:10px;color:var(--text-faint)}
-.cmp{display:grid;grid-template-columns:1fr 1fr;gap:14px;max-width:1100px}
-.cs{padding:16px 18px;background:var(--bg-2);border:1px solid var(--border);border-radius:10px}
+.cd .ic{font-size:22px;margin-bottom:6px}
+.cd h3{font-size:.98em;margin:0 0 5px}
+.cd p{color:var(--text-dim);font-size:.78em;line-height:1.45;margin:2px 0 0}
+.cd .ft{margin-top:6px;padding-top:6px;border-top:1px dashed var(--border);font-family:var(--font-mono);font-size:9px;color:var(--text-faint)}
+.cmp{display:grid;grid-template-columns:1fr 1fr;gap:10px;max-width:1100px}
+.cs{padding:14px 16px;background:var(--bg-2);border:1px solid var(--border);border-radius:10px}
 .cs.warn{border-color:rgba(241,194,27,.4);background:rgba(241,194,27,.06)}
 .cs.good{border-color:rgba(66,190,101,.4);background:rgba(66,190,101,.06)}
 .cs.accent{border-color:rgba(69,137,255,.4);background:rgba(69,137,255,.08)}
-.cs .lbl{font-family:var(--font-mono);font-size:10px;letter-spacing:1.5px;color:var(--text-faint);margin-bottom:12px;text-transform:uppercase}
-.cs h3{font-size:1.1em;margin:0 0 12px}
-.cs ul{padding-left:16px;margin:0;color:var(--text-dim);font-size:.85em;line-height:1.7}
-.cs ul li{margin:2px 0}
-.fl{display:flex;align-items:center;gap:8px;flex-wrap:nowrap;justify-content:center;max-width:1100px;margin:0 auto}
-.fs{flex:1;min-width:0;padding:16px 12px;background:var(--bg-2);border:1px solid var(--border);border-radius:10px;text-align:center}
-.fs .ico{font-size:22px;margin-bottom:6px}
-.fs .ttl{font-size:.85em;font-weight:600;margin-bottom:4px}
-.fs .ds{font-size:.75em;color:var(--text-dim);line-height:1.4}
-.fl .ar{color:var(--text-faint);font-size:18px;flex-shrink:0}
-.tl{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:16px;max-width:1100px;margin:20px auto 0;position:relative}
+.cs .lbl{font-family:var(--font-mono);font-size:9px;letter-spacing:1.5px;color:var(--text-faint);margin-bottom:8px;text-transform:uppercase}
+.cs h3{font-size:1em;margin:0 0 8px}
+.cs ul{padding-left:14px;margin:0;color:var(--text-dim);font-size:.8em;line-height:1.6}
+.cs ul li{margin:1px 0}
+.fl{display:flex;align-items:center;gap:6px;flex-wrap:nowrap;justify-content:center;max-width:1100px;margin:0 auto}
+.fs{flex:1;min-width:0;padding:12px 10px;background:var(--bg-2);border:1px solid var(--border);border-radius:10px;text-align:center}
+.fs .ico{font-size:20px;margin-bottom:4px}
+.fs .ttl{font-size:.82em;font-weight:600;margin-bottom:3px}
+.fs .ds{font-size:.72em;color:var(--text-dim);line-height:1.35}
+.fl .ar{color:var(--text-faint);font-size:16px;flex-shrink:0}
+.tl{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:14px;max-width:1100px;margin:14px auto 0;position:relative}
 .tl::before{content:'';position:absolute;top:14px;left:5%;right:5%;height:1px;background:linear-gradient(90deg,transparent,var(--border) 10%,var(--border) 90%,transparent)}
-.ti{position:relative;padding:28px 6px 0;text-align:center}
+.ti{position:relative;padding:24px 6px 0;text-align:center}
 .ti::before{content:'';position:absolute;top:8px;left:50%;transform:translateX(-50%);width:14px;height:14px;background:var(--bg-1);border:2px solid var(--accent);border-radius:50%;box-shadow:0 0 12px var(--accent-soft)}
-.ti .yr{font-family:var(--font-mono);font-size:11px;color:var(--accent);margin-bottom:5px}
-.ti .ttl{font-size:.9em;font-weight:600;margin-bottom:3px}
-.ti .ds{font-size:.78em;color:var(--text-dim);line-height:1.5}
-.ti.major::before{background:var(--accent);border-color:var(--accent-2)}.tl{font-size:13px}
-.qt{padding:10px 0}
-.qt .mk{font-size:4em;line-height:.6;color:var(--accent);opacity:.5;font-family:Georgia,serif;margin-bottom:8px}
-.qt blockquote{font-size:1.2em;line-height:1.6;color:var(--text-dim);border-left:3px solid var(--accent);padding-left:20px}
+.ti .yr{font-family:var(--font-mono);font-size:10px;color:var(--accent);margin-bottom:4px}
+.ti .ttl{font-size:.85em;font-weight:600;margin-bottom:2px}
+.ti .ds{font-size:.72em;color:var(--text-dim);line-height:1.4}
+.ti.major::before{background:var(--accent);border-color:var(--accent-2)}.tl{font-size:12px}
+.qt{padding:8px 0}
+.qt .mk{font-size:3.5em;line-height:.6;color:var(--accent);opacity:.5;font-family:Georgia,serif;margin-bottom:6px}
+.qt blockquote{font-size:1.1em;line-height:1.55;color:var(--text-dim);border-left:3px solid var(--accent);padding-left:18px}
 .qt blockquote b{color:var(--ink)}
-.qt .at{margin-top:12px;font-size:.85em;color:var(--text-faint);font-style:italic}
-.tk{padding:12px 16px;background:var(--bg-2);border:1px solid var(--border);border-radius:10px;font-size:.88em;line-height:1.5;color:var(--text-dim)}
+.qt .at{margin-top:8px;font-size:.8em;color:var(--text-faint);font-style:italic}
+.tk{padding:10px 14px;background:var(--bg-2);border:1px solid var(--border);border-radius:10px;font-size:.82em;line-height:1.5;color:var(--text-dim)}
 .tk b{color:var(--ink)}
-.sg{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;max-width:1100px}
-.sgc{padding:14px 8px;background:var(--bg-2);border:1px solid var(--border);border-radius:10px;text-align:center}
-.sgc .si{font-size:28px;margin-bottom:8px}
-.sgc .sn{font-family:var(--font-mono);font-size:12px;font-weight:600;margin-bottom:6px}
-.sgc .ss{font-size:.8em;color:var(--text-dim);line-height:1.5}
-table{width:100%;max-width:1100px;border-collapse:collapse;font-size:.85em;color:var(--text-dim);line-height:1.6}
-th{background:var(--bg-3);color:var(--text-dim);font-weight:600;text-align:left;padding:8px 12px;border-bottom:1px solid var(--border);font-size:.88em}
-td{padding:8px 12px;border-bottom:1px solid var(--border);vertical-align:top}
+.sg{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;max-width:1100px}
+.sgc{padding:12px 6px;background:var(--bg-2);border:1px solid var(--border);border-radius:10px;text-align:center}
+.sgc .si{font-size:24px;margin-bottom:6px}
+.sgc .sn{font-family:var(--font-mono);font-size:11px;font-weight:600;margin-bottom:4px}
+.sgc .ss{font-size:.75em;color:var(--text-dim);line-height:1.4}
+table{width:100%;max-width:1100px;border-collapse:collapse;font-size:.8em;color:var(--text-dim);line-height:1.5}
+th{background:var(--bg-3);color:var(--text-dim);font-weight:600;text-align:left;padding:6px 10px;border-bottom:1px solid var(--border);font-size:.82em}
+td{padding:6px 10px;border-bottom:1px solid var(--border);vertical-align:top}
 tr:hover td{background:rgba(255,255,255,.02)}
 td b{color:var(--ink)}
 .ts{color:var(--accent-2)}.tw{color:var(--success)}.to{color:var(--warning)}
-.db{padding:14px;background:var(--bg-2);border:1px solid var(--border);border-radius:10px;margin-top:12px}
-.db .lbl{font-family:var(--font-mono);font-size:11px;color:var(--text-faint);margin-bottom:10px;letter-spacing:1px}
-.db pre{background:var(--bg-1);padding:14px;border-radius:8px;font-family:var(--font-mono);font-size:11.5px;line-height:1.7;overflow-x:auto;color:var(--text-dim);border:1px solid var(--border)}
-.cmp-table{font-size:13px}.cmp-table th,.cmp-table td{padding:8px 10px}.stats-grid{font-size:13px;gap:12px}.cb{color:#78a9ff}.cy{color:#f1c21b}.cg{color:#42be65}.cp{color:#c08bff}.cc{color:#06b6d4}.cr{color:#fa4d56}
+.db{padding:12px;background:var(--bg-2);border:1px solid var(--border);border-radius:10px;margin-top:10px}
+.db .lbl{font-family:var(--font-mono);font-size:10px;color:var(--text-faint);margin-bottom:8px;letter-spacing:1px}
+.db pre{background:var(--bg-1);padding:12px;border-radius:8px;font-family:var(--font-mono);font-size:11px;line-height:1.6;overflow-x:auto;color:var(--text-dim);border:1px solid var(--border)}
+.cmp-table{font-size:12px}.cmp-table th,.cmp-table td{padding:6px 8px}.stats-grid{font-size:12px;gap:10px}.cb{color:#78a9ff}.cy{color:#f1c21b}.cg{color:#42be65}.cp{color:#c08bff}.cc{color:#06b6d4}.cr{color:#fa4d56}
 ::-webkit-scrollbar{width:6px;height:6px}
 ::-webkit-scrollbar-track{background:transparent}
 ::-webkit-scrollbar-thumb{background:var(--border-strong);border-radius:3px}
@@ -220,7 +220,7 @@ td b{color:var(--ink)}
     <div class="ti">
       <div class="yr">5min</div>
       <div class="ttl">Q&amp;A</div>
-      <div class="ds">自由提问<br>互动交流</div>
+      <div class="ds">自由提问<br>答疑交流</div>
     </div>
   </div>
 </div>
@@ -485,9 +485,9 @@ td b{color:var(--ink)}
     <h2>知识图谱可视化演示</h2>
     <div class="sub">汽车售后零部件供应链的本体关系网络</div>
   </div>
-  <div style="text-align:center;padding:40px;">
-    <div style="font-size:80px;margin-bottom:20px;">🕸️</div>
-    <p style="color:var(--text-dim);font-size:1.1em;margin-bottom:30px;">点击下方按钮，打开交互式知识图谱平台</p>
+  <div style="text-align:center;padding:30px;">
+    <div style="font-size:60px;margin-bottom:14px;">🕸️</div>
+    <p style="color:var(--text-dim);font-size:1em;margin-bottom:20px;">点击下方按钮，打开交互式知识图谱平台</p>
     <button class="ctrl-btn" style="font-size:16px;padding:12px 28px;" onclick="window.open('ontology-platform.html','_blank')">🚀 打开知识图谱平台</button>
     <p style="color:var(--text-faint);font-size:12px;margin-top:16px;">平台包含：力导图可视化 · 粒子流动画 · 节点交互 · 3D线框球</p>
   </div>
@@ -705,7 +705,7 @@ td b{color:var(--ink)}
     <tr><td><b class="cg">行动函数 Action</b></td><td>执行业务干预动作</td><td>出现问题，我们该做什么？</td><td>生成库存调拨建议、模拟召回冲击、触发供应恢复</td></tr>
   </table>
   <div class="qt" style="padding-top:20px;">
-    <blockquote style="font-size:1.3em;">聚合算指标，派生传影响，行动做决策</blockquote>
+    <blockquote style="font-size:1.15em;">聚合算指标，派生传影响，行动做决策</blockquote>
     <div class="attr">— 本体论核心口诀</div>
   </div>
 </div>
@@ -747,9 +747,9 @@ td b{color:var(--ink)}
       </div>
     </div>
   </div>
-  <div style="margin-top:12px;padding:14px;background:var(--bg-2);border:1px solid var(--border);border-radius:10px;">
-    <div style="font-family:var(--font-mono);font-size:13px;color:var(--accent-2);margin-bottom:10px;">// 聚合函数配置示例</div>
-    <div style="font-family:var(--font-mono);font-size:12px;color:var(--text-dim);line-height:1.8;">
+  <div style="margin-top:10px;padding:10px 14px;background:var(--bg-2);border:1px solid var(--border);border-radius:10px;">
+    <div style="font-family:var(--font-mono);font-size:12px;color:var(--accent-2);margin-bottom:6px;">// 聚合函数配置示例</div>
+    <div style="font-family:var(--font-mono);font-size:11px;color:var(--text-dim);line-height:1.7;">
       <div>aggregate: <span class="cy">demand_by_region</span></div>
       <div>&nbsp;&nbsp;entity: <span class="cg">WorkOrder</span></div>
       <div>&nbsp;&nbsp;groupBy: [<span class="cy">region</span>, <span class="cy">date_window</span>]</div>
@@ -781,10 +781,10 @@ td b{color:var(--ink)}
     <h2>派生函数：属性自动传播，风险级联计算</h2>
     <div class="sub">本体"智能"的核心载体——同对象内计算 + 跨对象关系传播</div>
   </div>
-  <div style="margin-top:16px;display:grid;grid-template-columns:1fr 1fr;gap:16px;">
-    <div style="padding:18px;background:var(--bg-2);border:1px solid var(--border);border-radius:10px;">
-      <div class="lbl" style="font-family:var(--font-mono);font-size:11px;color:var(--text-faint);margin-bottom:12px;">同对象派生</div>
-      <div style="font-size:13px;color:var(--text-dim);line-height:1.7;">
+  <div style="margin-top:12px;display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+    <div style="padding:14px;background:var(--bg-2);border:1px solid var(--border);border-radius:10px;">
+      <div class="lbl" style="font-family:var(--font-mono);font-size:10px;color:var(--text-faint);margin-bottom:8px;">同对象派生</div>
+      <div style="font-size:12px;color:var(--text-dim);line-height:1.6;">
         <p>基于同一实体的多个基础属性，计算复合指标</p>
         <div style="margin-top:10px;padding:10px;background:var(--bg);border-radius:6px;font-family:var(--font-mono);font-size:12px;">
           <div>supplier.risk_score =</div>
@@ -793,9 +793,9 @@ td b{color:var(--ink)}
         <p style="margin-top:10px;">交期风险 + 可靠度评分 → <b style="color:#fff;">综合风险分</b></p>
       </div>
     </div>
-    <div style="padding:18px;background:var(--bg-2);border:1px solid rgba(241,194,27,0.3);border-radius:10px;">
-      <div class="lbl" style="font-family:var(--font-mono);font-size:11px;color:var(--warning);margin-bottom:12px;">跨对象派生 ★重点</div>
-      <div style="font-size:13px;color:var(--text-dim);line-height:1.7;">
+    <div style="padding:14px;background:var(--bg-2);border:1px solid rgba(241,194,27,0.3);border-radius:10px;">
+      <div class="lbl" style="font-family:var(--font-mono);font-size:10px;color:var(--warning);margin-bottom:8px;">跨对象派生 ★重点</div>
+      <div style="font-size:12px;color:var(--text-dim);line-height:1.6;">
         <p>沿关系边实现属性传播计算</p>
         <div style="margin-top:10px;padding:10px;background:var(--bg);border-radius:6px;font-family:var(--font-mono);font-size:12px;">
           <div>supplier.risk ↑</div>
@@ -849,9 +849,9 @@ td b{color:var(--ink)}
       <div class="ft">与外部系统联动，形成闭环</div>
     </div>
   </div>
-  <div style="margin-top:12px;padding:14px;background:var(--bg-2);border:1px solid var(--border);border-radius:10px;">
-    <div style="font-family:var(--font-mono);font-size:13px;color:var(--accent-2);margin-bottom:8px;">// 行动函数配置示例：召回模拟</div>
-    <div style="font-family:var(--font-mono);font-size:11px;color:var(--text-dim);line-height:1.6;">
+  <div style="margin-top:10px;padding:10px 14px;background:var(--bg-2);border:1px solid var(--border);border-radius:10px;">
+    <div style="font-family:var(--font-mono);font-size:12px;color:var(--accent-2);margin-bottom:6px;">// 行动函数配置示例：召回模拟</div>
+    <div style="font-family:var(--font-mono);font-size:10.5px;color:var(--text-dim);line-height:1.55;">
       <div>action: <span class="cy">recall_simulation</span></div>
       <div>&nbsp;&nbsp;trigger: <span class="cg">recall_announcement</span></div>
       <div>&nbsp;&nbsp;input: [<span class="cy">part_type</span>, <span class="cy">affected_batches</span>]</div>
@@ -883,26 +883,26 @@ td b{color:var(--ink)}
     <h2>三类函数对比与协作</h2>
     <div class="sub">它们不是孤立的，而是构成一个完整的"感知-推理-行动"闭环</div>
   </div>
-  <div style="margin-top:16px;display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;">
-    <div style="padding:18px;background:rgba(69,137,255,0.08);border:1px solid rgba(69,137,255,0.3);border-radius:10px;text-align:center;">
-      <div style="font-size:36px;margin-bottom:12px;">📊</div>
-      <div style="font-weight:600;color:#78a9ff;margin-bottom:8px;">聚合函数</div>
-      <div style="font-size:12px;color:var(--text-dim);line-height:1.6;">感知层<br>汇总事实 → 生成指标<br><b style="color:#fff;">"发生了什么"</b></div>
+  <div style="margin-top:12px;display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;">
+    <div style="padding:14px;background:rgba(69,137,255,0.08);border:1px solid rgba(69,137,255,0.3);border-radius:10px;text-align:center;">
+      <div style="font-size:30px;margin-bottom:8px;">📊</div>
+      <div style="font-weight:600;color:#78a9ff;margin-bottom:6px;font-size:13px;">聚合函数</div>
+      <div style="font-size:11px;color:var(--text-dim);line-height:1.55;">感知层<br>汇总事实 → 生成指标<br><b style="color:#fff;">"发生了什么"</b></div>
     </div>
-    <div style="padding:18px;background:rgba(241,194,27,0.08);border:1px solid rgba(241,194,27,0.3);border-radius:10px;text-align:center;">
-      <div style="font-size:36px;margin-bottom:12px;">🔗</div>
-      <div style="font-weight:600;color:#f1c21b;margin-bottom:8px;">派生函数</div>
-      <div style="font-size:12px;color:var(--text-dim);line-height:1.6;">推理层<br>属性传播 → 风险级联<br><b style="color:#fff;">"影响有多大"</b></div>
+    <div style="padding:14px;background:rgba(241,194,27,0.08);border:1px solid rgba(241,194,27,0.3);border-radius:10px;text-align:center;">
+      <div style="font-size:30px;margin-bottom:8px;">🔗</div>
+      <div style="font-weight:600;color:#f1c21b;margin-bottom:6px;font-size:13px;">派生函数</div>
+      <div style="font-size:11px;color:var(--text-dim);line-height:1.55;">推理层<br>属性传播 → 风险级联<br><b style="color:#fff;">"影响有多大"</b></div>
     </div>
-    <div style="padding:18px;background:rgba(66,190,101,0.08);border:1px solid rgba(66,190,101,0.3);border-radius:10px;text-align:center;">
-      <div style="font-size:36px;margin-bottom:12px;">⚡</div>
-      <div style="font-weight:600;color:#42be65;margin-bottom:8px;">行动函数</div>
-      <div style="font-size:12px;color:var(--text-dim);line-height:1.6;">行动层<br>执行干预 → 业务闭环<br><b style="color:#fff;">"该怎么办"</b></div>
+    <div style="padding:14px;background:rgba(66,190,101,0.08);border:1px solid rgba(66,190,101,0.3);border-radius:10px;text-align:center;">
+      <div style="font-size:30px;margin-bottom:8px;">⚡</div>
+      <div style="font-weight:600;color:#42be65;margin-bottom:6px;font-size:13px;">行动函数</div>
+      <div style="font-size:11px;color:var(--text-dim);line-height:1.55;">行动层<br>执行干预 → 业务闭环<br><b style="color:#fff;">"该怎么办"</b></div>
     </div>
   </div>
-  <div style="margin-top:12px;padding:14px;background:var(--bg-2);border:1px solid var(--border);border-radius:10px;">
-    <div style="font-size:12px;color:var(--text-dim);line-height:1.6;">
-      <div style="margin-bottom:6px;"><b style="color:#fff;">协作示例：召回应急响应</b></div>
+  <div style="margin-top:10px;padding:10px 14px;background:var(--bg-2);border:1px solid var(--border);border-radius:10px;">
+    <div style="font-size:11px;color:var(--text-dim);line-height:1.55;">
+      <div style="margin-bottom:4px;"><b style="color:#fff;">协作示例：召回应急响应</b></div>
       <div>1️⃣ <b class="cb">聚合</b>：按区域汇总召回涉及的车辆数量 → <b class="cy">派生</b>：计算各区域零部件需求激增量</div>
       <div>2️⃣ <b class="cy">派生</b>：需求激增沿SUPPLIES关系传播 → 供应商产能风险评估自动更新</div>
       <div>3️⃣ <b class="cy">派生</b>：供应商风险沿FULFILLS关系传播 → 各仓库缺货风险时间线自动生成</div>
@@ -932,9 +932,9 @@ td b{color:var(--ink)}
     <h2>函数效果演示</h2>
     <div class="sub">打开ontology-platform.html，在"函数演示"标签页中实时观察三类函数的运行效果</div>
   </div>
-  <div style="text-align:center;padding:30px;">
-    <div style="font-size:72px;margin-bottom:20px;">⚙️</div>
-    <p style="color:var(--text-dim);font-size:1.1em;margin-bottom:30px;">实时演示：聚合 · 派生 · 行动</p>
+  <div style="text-align:center;padding:24px;">
+    <div style="font-size:56px;margin-bottom:14px;">⚙️</div>
+    <p style="color:var(--text-dim);font-size:1em;margin-bottom:20px;">实时演示：聚合 · 派生 · 行动</p>
     <button class="ctrl-btn" style="font-size:16px;padding:12px 28px;" onclick="window.open('ontology-platform.html','_blank')">🚀 打开演示平台</button>
     <p style="color:var(--text-faint);font-size:12px;margin-top:16px;">建议演示顺序：① 修改供应商交期风险 → 观察派生传播 ② 切换时间窗口 → 观察聚合变化 ③ 触发召回模拟 → 观察行动输出</p>
   </div>
@@ -947,7 +947,7 @@ td b{color:var(--ink)}
     <p><b>第二步，观察聚合变化。</b>切换时间窗口——从"近7天"切换到"近30天"。注意看聚合指标的变化。不同时间粒度，看到的业务态势完全不同。</p>
     <p><b>第三步，触发召回模拟。</b>点击"模拟召回冲击"按钮，输入召回规模——比如"50000辆车"。系统会在几秒内生成全网影响报告。</p>
     <p>大家看报告——受影响供应商列表、各仓库预计断供时间、建议调拨方案。这就是<b>行动函数</b>的输出。</p>
-    <p>有任何问题吗？如果没有，我们继续下一个模块——本体论的进化阶段。</p>
+    <p>好，如果没有其他问题，我们继续下一个模块——本体论的进化阶段。</p>
 </aside>
 </section>
 </section>
@@ -1076,9 +1076,9 @@ td b{color:var(--ink)}
     <h2>Stage 1：YAML结构化定义</h2>
     <div class="sub">用机器可读的结构化文件定义本体——可版本控制、可复用、可共享</div>
   </div>
-  <div style="margin-top:16px;padding:16px;background:var(--bg-2);border:1px solid var(--border);border-radius:10px;">
-    <div style="font-family:var(--font-mono);font-size:13px;color:var(--accent-2);margin-bottom:10px;"># ontology.yaml — 供应链本体定义</div>
-    <div style="font-family:var(--font-mono);font-size:12px;color:var(--text-dim);line-height:1.8;">
+  <div style="margin-top:12px;padding:10px 14px;background:var(--bg-2);border:1px solid var(--border);border-radius:10px;">
+    <div style="font-family:var(--font-mono);font-size:12px;color:var(--accent-2);margin-bottom:6px;"># ontology.yaml — 供应链本体定义</div>
+    <div style="font-family:var(--font-mono);font-size:11px;color:var(--text-dim);line-height:1.65;">
       <div><span class="cp">ontology</span>:</div>
       <div>&nbsp;&nbsp;<span class="cy">name</span>: <span class="cg">auto_parts_supply_chain</span></div>
       <div>&nbsp;&nbsp;<span class="cy">version</span>: <span class="cg">"1.0"</span></div>
@@ -1209,8 +1209,8 @@ td b{color:var(--ink)}
       <div class="ft">企业级安全合规</div>
     </div>
   </div>
-  <div style="margin-top:12px;padding:14px;background:var(--bg-2);border:1px solid var(--border);border-radius:10px;">
-    <div style="font-size:12px;color:var(--text-dim);line-height:1.6;">
+  <div style="margin-top:10px;padding:10px 14px;background:var(--bg-2);border:1px solid var(--border);border-radius:10px;">
+    <div style="font-size:11px;color:var(--text-dim);line-height:1.6;">
       <b style="color:#fff;">典型用户场景：</b>
       <p>• <b>业务专家</b>在可视化界面中调整实体属性，无需接触YAML</p>
       <p>• <b>数据工程师</b>在后台配置数据接入和处理节点</p>
@@ -1239,10 +1239,10 @@ td b{color:var(--ink)}
     <h2>Stage 4：动态自适应平台</h2>
     <div class="sub">本体不再只是"被定义"，而是能够"自我进化"</div>
   </div>
-  <div style="margin-top:16px;display:grid;grid-template-columns:1fr 1fr;gap:16px;">
-    <div style="padding:18px;background:var(--bg-2);border:1px solid var(--border);border-radius:10px;">
-      <div class="lbl" style="font-family:var(--font-mono);font-size:11px;color:var(--text-faint);margin-bottom:12px;">传统模式（Stage 3及以前）</div>
-      <div style="font-size:13px;color:var(--text-dim);line-height:1.7;">
+  <div style="margin-top:12px;display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+    <div style="padding:14px;background:var(--bg-2);border:1px solid var(--border);border-radius:10px;">
+      <div class="lbl" style="font-family:var(--font-mono);font-size:10px;color:var(--text-faint);margin-bottom:8px;">传统模式（Stage 3及以前）</div>
+      <div style="font-size:12px;color:var(--text-dim);line-height:1.6;">
         <p>本体由<b style="color:#fff;">人定义</b>，系统<b style="color:#fff;">被动执行</b></p>
         <p>• 发现新实体类型 → 人工编写YAML</p>
         <p>• 发现新关系模式 → 人工更新Schema</p>
@@ -1250,9 +1250,9 @@ td b{color:var(--ink)}
         <p>• 维护成本随复杂度线性增长</p>
       </div>
     </div>
-    <div style="padding:18px;background:rgba(6,182,212,0.08);border:1px solid rgba(6,182,212,0.3);border-radius:10px;">
-      <div class="lbl" style="font-family:var(--font-mono);font-size:11px;color:#06b6d4;margin-bottom:12px;">动态模式（Stage 4）</div>
-      <div style="font-size:13px;color:var(--text-dim);line-height:1.7;">
+    <div style="padding:14px;background:rgba(6,182,212,0.08);border:1px solid rgba(6,182,212,0.3);border-radius:10px;">
+      <div class="lbl" style="font-family:var(--font-mono);font-size:10px;color:#06b6d4;margin-bottom:8px;">动态模式（Stage 4）</div>
+      <div style="font-size:12px;color:var(--text-dim);line-height:1.6;">
         <p>系统<b style="color:#fff;">自动发现</b>，本体<b style="color:#fff;">自我进化</b></p>
         <p>• 从新数据中<b class="cc">自动识别</b>潜在实体类型</p>
         <p>• 从查询日志中<b class="cc">自动提取</b>高频关系模式</p>
@@ -1294,7 +1294,7 @@ td b{color:var(--ink)}
     <tr><td><b style="color:var(--stage4);">Stage 4</b></td><td>超大规模、长期演进</td><td>20人+</td><td>高</td><td>自适应、自进化</td></tr>
   </table>
   <div class="qt" style="padding-top:20px;">
-    <blockquote style="font-size:1.2em;"><b>阶段不是越高越好。</b>让一个3人团队上Stage 4，是过度设计；让一个50人团队还在用Stage 1，是欠设计。</blockquote>
+    <blockquote style="font-size:1.05em;"><b>阶段不是越高越好。</b>让一个3人团队上Stage 4，是过度设计；让一个50人团队还在用Stage 1，是欠设计。</blockquote>
   </div>
 </div>
 <aside class="notes">
@@ -1315,9 +1315,9 @@ td b{color:var(--ink)}
     <h2>本体进化阶段决策向导</h2>
     <div class="sub">回答5个问题，自动推荐最适合你团队的阶段</div>
   </div>
-  <div style="text-align:center;padding:30px;">
-    <div style="font-size:72px;margin-bottom:20px;">🧭</div>
-    <p style="color:var(--text-dim);font-size:1.1em;margin-bottom:30px;">互动决策工具：根据团队规模、项目阶段、技术能力自动推荐</p>
+  <div style="text-align:center;padding:24px;">
+    <div style="font-size:56px;margin-bottom:14px;">🧭</div>
+    <p style="color:var(--text-dim);font-size:1em;margin-bottom:20px;">根据团队规模、项目阶段、技术能力自动推荐适合的阶段</p>
     <button class="ctrl-btn" style="font-size:16px;padding:12px 28px;" onclick="window.open('ontology-platform.html','_blank')">🚀 打开决策向导</button>
     <p style="color:var(--text-faint);font-size:12px;margin-top:16px;">在ontology-platform.html的"决策工具"标签页中使用</p>
   </div>
@@ -1330,7 +1330,7 @@ td b{color:var(--ink)}
     <p>4. <b>非技术参与</b>——业务专家是否需要参与本体设计？</p>
     <p>5. <b>现有基础设施</b>——是否有CI/CD、Git仓库等工程化设施？</p>
     <p>我来演示一下。假设我是一个5人团队，做MVP开发，每周改2-3次本体，业务专家想参与，有Git但无CI/CD。系统推荐的是——<b>Stage 2</b>。理由是：热加载能显著提升开发效率，但暂时不需要管理平台。</p>
-    <p>大家可以课后自己试试这个工具，看看你的项目适合哪个阶段。</p>
+    <p>大家可以课后试试这个工具，看看自己的项目适合哪个阶段。</p>
 </aside>
 </section>
 </section>
@@ -1387,31 +1387,31 @@ td b{color:var(--ink)}
     <h2>给不同角色的实践建议</h2>
     <div class="sub">无论你是开发者、业务专家还是管理者，今天都可以带走一个行动项</div>
   </div>
-  <div style="margin-top:16px;display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;">
-    <div style="padding:18px;background:rgba(69,137,255,0.08);border:1px solid rgba(69,137,255,0.3);border-radius:10px;">
-      <div style="font-size:28px;margin-bottom:10px;">👨‍💻</div>
-      <div style="font-weight:600;color:#78a9ff;margin-bottom:10px;">开发者</div>
-      <div style="font-size:12px;color:var(--text-dim);line-height:1.7;">
+  <div style="margin-top:12px;display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;">
+    <div style="padding:14px;background:rgba(69,137,255,0.08);border:1px solid rgba(69,137,255,0.3);border-radius:10px;">
+      <div style="font-size:24px;margin-bottom:8px;">👨‍💻</div>
+      <div style="font-weight:600;color:#78a9ff;margin-bottom:8px;font-size:13px;">开发者</div>
+      <div style="font-size:11px;color:var(--text-dim);line-height:1.65;">
         <p>• 从Stage 1开始，用YAML定义一个小领域本体</p>
         <p>• 尝试聚合/派生函数，感受"声明式计算"的魅力</p>
         <p>• 对比传统CRUD vs 本体驱动开发，写出心得</p>
         <p>• 推荐工具：ontoCHQ社区版、Neo4j、RDFLib</p>
       </div>
     </div>
-    <div style="padding:18px;background:rgba(241,194,27,0.08);border:1px solid rgba(241,194,27,0.3);border-radius:10px;">
-      <div style="font-size:28px;margin-bottom:10px;">👔</div>
-      <div style="font-weight:600;color:#f1c21b;margin-bottom:10px;">业务专家</div>
-      <div style="font-size:12px;color:var(--text-dim);line-height:1.7;">
+    <div style="padding:14px;background:rgba(241,194,27,0.08);border:1px solid rgba(241,194,27,0.3);border-radius:10px;">
+      <div style="font-size:24px;margin-bottom:8px;">👔</div>
+      <div style="font-weight:600;color:#f1c21b;margin-bottom:8px;font-size:13px;">业务专家</div>
+      <div style="font-size:11px;color:var(--text-dim);line-height:1.65;">
         <p>• 画出你所在领域的"实体-关系-属性"草图</p>
         <p>• 思考：哪些业务规则可以"固化"到本体里？</p>
         <p>• 和开发者一起评审YAML，确保语义准确</p>
         <p>• 推荐学习：领域驱动设计（DDD）基础</p>
       </div>
     </div>
-    <div style="padding:18px;background:rgba(66,190,101,0.08);border:1px solid rgba(66,190,101,0.3);border-radius:10px;">
-      <div style="font-size:28px;margin-bottom:10px;">🎯</div>
-      <div style="font-weight:600;color:#42be65;margin-bottom:10px;">管理者</div>
-      <div style="font-size:12px;color:var(--text-dim);line-height:1.7;">
+    <div style="padding:14px;background:rgba(66,190,101,0.08);border:1px solid rgba(66,190,101,0.3);border-radius:10px;">
+      <div style="font-size:24px;margin-bottom:8px;">🎯</div>
+      <div style="font-weight:600;color:#42be65;margin-bottom:8px;font-size:13px;">管理者</div>
+      <div style="font-size:11px;color:var(--text-dim);line-height:1.65;">
         <p>• 评估当前系统的"语义层"成熟度</p>
         <p>• 找一个痛点场景，做1.5天POC验证</p>
         <p>• 建立"本体即资产"的团队认知</p>
@@ -1511,7 +1511,7 @@ td b{color:var(--ink)}
     <div class="ti major">
       <div class="yr">第1周</div>
       <div class="ttl">巩固基础</div>
-      <div class="ds">复习课件 · 完成课后练习<br>用YAML定义一个小领域本体</div>
+      <div class="ds">复习课件<br>用YAML定义一个小领域本体</div>
     </div>
     <div class="ti major">
       <div class="yr">第2-3周</div>
@@ -1533,7 +1533,7 @@ td b{color:var(--ink)}
 <aside class="notes">
     <p>课程结束了，但学习才刚刚开始。我给大家规划了一个<b>7周学习路径</b>。</p>
     
-    <p><b>第一周，巩固基础。</b>复习今天的课件，完成课后练习。重点是用YAML定义一个小领域本体，确保你掌握了"实体-关系-属性"的基本方法。</p>
+    <p><b>第一周，巩固基础。</b>复习今天的课件，重点是用YAML定义一个小领域本体，确保你掌握了"实体-关系-属性"的基本方法。</p>
     <p><b>第二到三周，工具实践。</b>下载ontoCHQ社区版，或者使用开源的Neo4j，实际构建一个图谱。重点是实现聚合函数和派生函数，感受"声明式计算"和"属性传播"的效果。</p>
     <p><b>第四到六周，项目实战。</b>选一个你所在领域的真实场景，做一个小型POC。写一份本体设计文档，包括实体定义、关系定义、属性列表、函数配置。这份文档就是你未来面试或工作中的"作品集"。</p>
     <p><b>第七周以后，深入拓展。</b>如果你打算在本体论方向深耕，需要阅读W3C的OWL和RDF规范，研究本体对齐、本体演化、以及大模型+本体的前沿结合。</p>
@@ -1547,36 +1547,36 @@ td b{color:var(--ink)}
     <h2>推荐资源与延伸阅读</h2>
     <div class="sub">书籍、论文、工具、社区——持续学习的燃料</div>
   </div>
-  <div style="margin-top:16px;display:grid;grid-template-columns:1fr 1fr;gap:16px;">
-    <div style="padding:18px;background:var(--bg-2);border:1px solid var(--border);border-radius:10px;">
-      <div style="font-weight:600;color:#fff;margin-bottom:12px;">📚 书籍</div>
-      <div style="font-size:12px;color:var(--text-dim);line-height:1.8;">
+  <div style="margin-top:12px;display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+    <div style="padding:12px;background:var(--bg-2);border:1px solid var(--border);border-radius:10px;">
+      <div style="font-weight:600;color:#fff;margin-bottom:8px;font-size:13px;">📚 书籍</div>
+      <div style="font-size:11px;color:var(--text-dim);line-height:1.7;">
         <p>• 《知识图谱：方法、实践与应用》— 肖仰华</p>
         <p>• 《知识图谱与深度学习》— 刘知远</p>
         <p>• 《Ontology Engineering》— Steffen Staab</p>
         <p>• 《Designing Data-Intensive Applications》— Martin Kleppmann</p>
       </div>
     </div>
-    <div style="padding:18px;background:var(--bg-2);border:1px solid var(--border);border-radius:10px;">
-      <div style="font-weight:600;color:#fff;margin-bottom:12px;">🛠️ 工具</div>
-      <div style="font-size:12px;color:var(--text-dim);line-height:1.8;">
+    <div style="padding:12px;background:var(--bg-2);border:1px solid var(--border);border-radius:10px;">
+      <div style="font-weight:600;color:#fff;margin-bottom:8px;font-size:13px;">🛠️ 工具</div>
+      <div style="font-size:11px;color:var(--text-dim);line-height:1.7;">
         <p>• <b>ontoCHQ</b> — 国产本体智能平台（本课程使用）</p>
         <p>• <b>Neo4j</b> — 最流行的图数据库</p>
         <p>• <b>Protégé</b> — 经典本体编辑器</p>
         <p>• <b>Apache Jena</b> — RDF/OWL推理框架</p>
       </div>
     </div>
-    <div style="padding:18px;background:var(--bg-2);border:1px solid var(--border);border-radius:10px;">
-      <div style="font-weight:600;color:#fff;margin-bottom:12px;">📄 论文</div>
-      <div style="font-size:12px;color:var(--text-dim);line-height:1.8;">
+    <div style="padding:12px;background:var(--bg-2);border:1px solid var(--border);border-radius:10px;">
+      <div style="font-weight:600;color:#fff;margin-bottom:8px;font-size:13px;">📄 论文</div>
+      <div style="font-size:11px;color:var(--text-dim);line-height:1.7;">
         <p>• "Knowledge Graphs" — Hogan et al. (2021) 综述</p>
         <p>• "A Review of Ontology Learning" — Wong et al.</p>
         <p>• Palantir相关技术白皮书</p>
       </div>
     </div>
-    <div style="padding:18px;background:var(--bg-2);border:1px solid var(--border);border-radius:10px;">
-      <div style="font-weight:600;color:#fff;margin-bottom:12px;">💬 社区</div>
-      <div style="font-size:12px;color:var(--text-dim);line-height:1.8;">
+    <div style="padding:12px;background:var(--bg-2);border:1px solid var(--border);border-radius:10px;">
+      <div style="font-weight:600;color:#fff;margin-bottom:8px;font-size:13px;">💬 社区</div>
+      <div style="font-size:11px;color:var(--text-dim);line-height:1.7;">
         <p>• 知识图谱与语义计算专委会（CCKS）</p>
         <p>• ontoCHQ开发者社区</p>
         <p>• Stack Overflow — neo4j/ontology标签</p>
@@ -1602,13 +1602,13 @@ td b{color:var(--ink)}
 <div class="sc-content">
 <div class="ch">
     <div class="ctx">Q&A</div>
-    <h2>问答互动</h2>
+    <h2>Q&amp;A 问答</h2>
     <div class="sub">有问题随时提问</div>
   </div>
-  <div style="text-align:center;padding:40px;">
-    <div style="font-size:80px;margin-bottom:24px;">💬</div>
-    <p style="font-size:1.4em;color:var(--text-dim);margin-bottom:16px;">"没有愚蠢的问题，只有还没被回答的问题。"</p>
-    <div style="max-width:600px;margin:24px auto;text-align:left;padding:18px;background:var(--bg-2);border:1px solid var(--border);border-radius:10px;font-size:13px;color:var(--text-dim);line-height:1.8;">
+  <div style="text-align:center;padding:30px;">
+    <div style="font-size:64px;margin-bottom:16px;">💬</div>
+    <p style="font-size:1.2em;color:var(--text-dim);margin-bottom:12px;">"没有愚蠢的问题，只有还没被回答的问题。"</p>
+    <div style="max-width:580px;margin:16px auto;text-align:left;padding:14px;background:var(--bg-2);border:1px solid var(--border);border-radius:10px;font-size:12px;color:var(--text-dim);line-height:1.7;">
       <div style="color:#fff;font-weight:600;margin-bottom:10px;">💡 常见问题预热</div>
       <p>• 本体论和大型语言模型（LLM）是什么关系？</p>
       <p>• 本体论在金融/医疗/教育领域有什么应用？</p>
@@ -1635,8 +1635,8 @@ td b{color:var(--ink)}
 <section data-chapter="结束">
 <div class="sc-content">
 <div class="logo-bar" style="margin-bottom:30px;"><div class="dot"></div> 本体论与知识图谱教学平台</div>
-  <h1 style="font-size:3.2em;">感谢聆听</h1>
-  <h2>让AI真正"懂"你的行业</h2>
+  <h1 style="font-size:2.6em;">感谢聆听</h1>
+  <h2 style="font-size:1.1em;color:var(--text-dim);font-weight:400;">让AI真正"懂"你的行业</h2>
   <div style="margin-top:40px;display:flex;gap:30px;justify-content:center;flex-wrap:wrap;font-family:var(--font-mono);font-size:13px;color:var(--text-faint);">
     <span>课件平台：ontology-platform.html</span>
     <span>课件演示：courseware.html</span>
@@ -1678,7 +1678,7 @@ Reveal.initialize({
   slideNumber: 'c/t',
   controls: true,
   progress: true,
-  center: true,
+  center: false,
   transition: 'slide',
   width: 1280,
   height: 800,
