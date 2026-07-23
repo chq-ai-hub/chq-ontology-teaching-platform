@@ -1412,6 +1412,67 @@ tr:hover td { background: rgba(59,130,246,0.03); }
   .functions-grid { grid-template-columns: 1fr; }
   .stats-grid { grid-template-columns: repeat(2, 1fr); }
 }
+/* ===== SCENE SELECTOR ===== */
+.scene-selector {
+  position: absolute; top: 16px; left: 50%; transform: translateX(-50%);
+  display: flex; gap: 4px; z-index: 20;
+  background: var(--glass-bg); border: 1px solid var(--glass-border);
+  border-radius: var(--radius-md); padding: 4px; backdrop-filter: blur(20px);
+}
+.scene-tab {
+  padding: 6px 14px; border: none; background: transparent; color: var(--muted);
+  font-size: 0.8rem; font-family: var(--font-zh); cursor: pointer;
+  border-radius: var(--radius-sm); transition: var(--transition); white-space: nowrap;
+}
+.scene-tab:hover { color: var(--ink); background: rgba(255,255,255,0.05); }
+.scene-tab.active { color: #fff; background: linear-gradient(135deg, var(--accent), var(--accent2)); }
+.link-demo-panel {
+  position: absolute; top: 70px; left: 16px; display: flex;
+  flex-direction: column; gap: 6px; z-index: 15; max-width: 190px;
+}
+.link-demo-btn {
+  padding: 7px 11px; background: var(--glass-bg); border: 1px solid var(--glass-border);
+  border-radius: var(--radius-sm); color: var(--ink); font-size: 0.75rem;
+  font-family: var(--font-zh); cursor: pointer; transition: var(--transition);
+  backdrop-filter: blur(10px); text-align: left; line-height: 1.4;
+}
+.link-demo-btn:hover { border-color: var(--accent); background: rgba(59,130,246,0.15); }
+.link-demo-btn.active { border-color: var(--accent); background: rgba(59,130,246,0.25); color: #fff; box-shadow: var(--shadow-glow); }
+.link-demo-header {
+  font-size: 0.7rem; color: var(--muted); padding: 4px 2px;
+  font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em;
+}
+.reasoning-panel {
+  position: absolute; bottom: 16px; right: 16px; width: 320px; max-height: 340px;
+  background: var(--glass-bg); border: 1px solid var(--glass-border);
+  border-radius: var(--radius-md); padding: 16px; backdrop-filter: blur(20px);
+  z-index: 20; overflow-y: auto; animation: slideLeft 0.3s ease; display: none;
+}
+.reasoning-panel.active { display: block; }
+.reasoning-panel h4 {
+  font-size: 0.9rem; margin-bottom: 12px; color: var(--accent);
+  display: flex; align-items: center; gap: 8px;
+}
+.reasoning-step {
+  padding: 8px 12px; margin-bottom: 6px; border-radius: var(--radius-sm);
+  font-size: 0.8rem; color: var(--muted); background: rgba(30,41,59,0.3);
+  border-left: 3px solid transparent; transition: all 0.6s ease; opacity: 0.35;
+}
+.reasoning-step.active {
+  color: var(--ink); background: rgba(59,130,246,0.1);
+  border-left-color: var(--accent); opacity: 1; transform: translateX(4px);
+}
+.reasoning-step.done {
+  color: var(--success); border-left-color: var(--success); opacity: 0.7;
+}
+.reasoning-step .step-num {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 20px; height: 20px; border-radius: 50%; font-size: 0.7rem;
+  font-weight: 600; margin-right: 8px; background: rgba(100,116,139,0.2); color: var(--muted); flex-shrink: 0;
+}
+.reasoning-step.active .step-num { background: rgba(59,130,246,0.3); color: var(--accent); }
+.reasoning-step.done .step-num { background: rgba(16,185,129,0.3); color: var(--success); }
+
 </style>
 </head>
 <body>
@@ -1426,13 +1487,13 @@ tr:hover td { background: rgba(59,130,246,0.03); }
     </div>
     <div class="form-group">
       <label class="form-label">用户名</label>
-      <input type="text" id="loginUser" class="form-input" placeholder="请输入用户名" autocomplete="off">
+      <input type="text" id="loginUser" class="form-input" placeholder="请输入用户名" autocomplete="off" value="teacher">
     </div>
     <div class="form-group">
       <label class="form-label">密码</label>
-      <input type="password" id="loginPass" class="form-input" placeholder="请输入密码">
+      <input type="password" id="loginPass" class="form-input" placeholder="请输入密码" value="teacher123">
     </div>
-    <button class="btn btn-primary btn-lg" style="width:100%;justify-content:center;margin-top:10px;" onclick="handleLogin()">登 录</button>
+    <button class="btn btn-primary btn-lg" style="width:100%;justify-content:center;margin-top:10px;" onclick="handleLogin()">进 入 平 台</button>
     <div class="login-hint">
       <em style="opacity:.4;font-size:12px">请联系管理员获取账号</em>
     </div>
@@ -1475,10 +1536,7 @@ tr:hover td { background: rgba(59,130,246,0.03); }
       <div class="nav-item" data-page="decisionPage" onclick="navigateTo('decisionPage')">
         <span class="nav-icon">🎯</span><span class="nav-text">决策工具</span>
       </div>
-      <div class="nav-item" data-page="rolePage" onclick="toggleRole()">
-        <span class="nav-icon">👤</span><span class="nav-text">角色切换</span>
-      </div>
-    </nav>
+          </nav>
     <div class="sidebar-user">
       <div class="sidebar-avatar" id="sidebarAvatar">T</div>
       <div class="sidebar-user-info">
@@ -1618,6 +1676,18 @@ tr:hover td { background: rgba(59,130,246,0.03); }
     <!-- ===== SECTION 2: KNOWLEDGE GRAPH ===== -->
     <div class="page-section" id="kgPage">
       <div class="kg-container">
+<div class="scene-selector" id="sceneSelector">
+          <button class="scene-tab active" onclick="switchScene('auto_supply')">汽车供应链</button>
+          <button class="scene-tab" onclick="switchScene('medical')">医疗健康</button>
+          <button class="scene-tab" onclick="switchScene('student')">学生关系</button>
+          <button class="scene-tab" onclick="switchScene('banking')">银行风控</button>
+          <button class="scene-tab" onclick="switchScene('fmcg')">快消供应链</button>
+        </div>
+        <div class="link-demo-panel" id="linkDemoPanel"></div>
+        <div class="reasoning-panel" id="reasoningPanel">
+          <h4>推理链路 <span style="cursor:pointer;margin-left:auto;color:var(--muted);" onclick="clearHighlight()">✕</span></h4>
+          <div id="reasoningSteps"></div>
+        </div>
         <canvas id="kgCanvas"></canvas>
         <div class="kg-controls">
           <button class="kg-control-btn" onclick="kgZoomIn()" title="放大">+</button>
@@ -1630,7 +1700,7 @@ tr:hover td { background: rgba(59,130,246,0.03); }
           <h3>节点详情</h3>
           <div id="kgNodeDetails"></div>
         </div>
-        <div class="kg-legend">
+        <div class="kg-legend" id="kgLegend">
           <div class="kg-legend-item"><div class="kg-legend-color" style="background:var(--accent);"></div>供应商</div>
           <div class="kg-legend-item"><div class="kg-legend-color" style="background:var(--success);"></div>仓库</div>
           <div class="kg-legend-item"><div class="kg-legend-color" style="background:var(--accent4);"></div>工单</div>
@@ -1730,7 +1800,7 @@ tr:hover td { background: rgba(59,130,246,0.03); }
             </ul>
           </div>
           <div class="card">
-            <h3 style="margin-bottom:10px;color:var(--success);">OntoFlow 方案价值</h3>
+            <h3 style="margin-bottom:10px;color:var(--success);">ontoCHQ 方案价值</h3>
             <p style="color:var(--muted);line-height:1.8;font-size:0.9rem;">
               基于本体论方法构建统一知识图谱，通过函数体系实现跨系统智能推理，大幅提升供应链可见性和决策效率。
               本方案将供应链管理从"数据驱动"升级为"知识驱动"。
@@ -1754,7 +1824,7 @@ tr:hover td { background: rgba(59,130,246,0.03); }
           <div class="card" style="margin-top:20px;">
             <h3 style="margin-bottom:10px;color:var(--accent);">架构说明</h3>
             <p style="color:var(--muted);font-size:0.9rem;line-height:1.8;">
-              OntoFlow 采用分层架构设计：数据采集层连接 ERP、WMS、MES 等异构系统；数据清洗层通过别名消歧和标准化处理统一数据格式；
+              ontoCHQ 采用分层架构设计：数据采集层连接 ERP、WMS、MES 等异构系统；数据清洗层通过别名消歧和标准化处理统一数据格式；
               本体建模层定义供应商、仓库、工单等实体及其关系；函数推理层通过聚合(Aggregate)、推导(Derive)、行动(Action)三类函数实现智能推理；
               智能应用层面向业务场景提供风险评估、召回模拟等高级功能。
             </p>
@@ -1845,7 +1915,7 @@ tr:hover td { background: rgba(59,130,246,0.03); }
           <div class="card" style="margin-bottom:16px;">
             <h3 style="margin-bottom:10px;color:var(--accent);">智能体架构</h3>
             <p style="color:var(--muted);font-size:0.9rem;line-height:1.8;">
-              OntoFlow 智能体基于本体知识图谱，通过函数调用链实现自主决策。每个智能体拥有独立的感知-推理-行动循环，
+              ontoCHQ 智能体基于本体知识图谱，通过函数调用链实现自主决策。每个智能体拥有独立的感知-推理-行动循环，
               可根据本体中的实体状态和关系，自动触发聚合、推导、行动函数链，完成复杂的业务场景处理。
             </p>
           </div>
@@ -1896,14 +1966,14 @@ tr:hover td { background: rgba(59,130,246,0.03); }
         </div>
         <!-- Tab 6: 价值对比 -->
         <div class="tab-content" id="caseTab6">
-          <h2 style="margin-bottom:16px;">📊 价值对比：ERP+BI vs OntoFlow</h2>
+          <h2 style="margin-bottom:16px;">📊 价值对比：ERP+BI vs ontoCHQ</h2>
           <div class="table-wrapper">
             <table class="comparison-table">
               <thead>
                 <tr>
                   <th style="text-align:left;">对比维度</th>
                   <th>传统 ERP + BI</th>
-                  <th>OntoFlow</th>
+                  <th>ontoCHQ</th>
                   <th>提升幅度</th>
                 </tr>
               </thead>
@@ -2231,6 +2301,243 @@ const AUTO_ONTOLOGY = {
   ]
 };
 
+
+
+const SCENES = {
+  auto_supply: {
+    name: '汽车供应链',
+    data: AUTO_ONTOLOGY,
+    typeColors: { Supplier: '#3b82f6', Warehouse: '#10b981', WorkOrder: '#f59e0b', Material: '#8b5cf6', Customer: '#06b6d4' },
+    typeIcons: { Supplier: '🏭', Warehouse: '🏪', WorkOrder: '📋', Material: '📦', Customer: '👤' },
+    typeNames: { Supplier: '供应商', Warehouse: '仓库', WorkOrder: '工单', Material: '物料', Customer: '客户' },
+    linkDemos: [
+      { name: '供应商风险传导', path: ['SUP-006','WH-002','WO-002','MAT-002'],
+        steps: ['检测到北方化工有限风险等级为5（最高）','北方化工向北京分仓库供应原材料','北京分仓库支撑变速箱采购工单','变速箱组件的生产可能受到影响'] },
+      { name: '核心物料供应链', path: ['SUP-001','WH-001','WO-001','MAT-001'],
+        steps: ['华东精密制造是核心供应商（风险等级2）','向上海主仓库稳定供应零部件','上海主仓库支撑发动机组装工单','保障发动机总成的高优先级生产'] },
+      { name: '电子元件配送', path: ['SUP-003','WH-003','WO-003','MAT-003'],
+        steps: ['南方电子元件生产ECU控制单元','通过沿海物流配送到广州前置仓','广州前置仓支撑电子元件装配工单','完成ECU控制单元的供应闭环'] },
+      { name: '物流节点追踪', path: ['SUP-008','WH-003','WO-003'],
+        steps: ['沿海物流服务负责广州前置仓配送','广州前置仓当前库存3800件','直接支撑电子元件装配工单','物流效率对生产交付至关重要'] }
+    ]
+  },
+  medical: {
+    name: '医疗健康',
+    data: {
+      entities: [
+        { id: 'P-001', type: 'Patient', name: '张三', age: 45, gender: '男', blood_type: 'A型' },
+        { id: 'P-002', type: 'Patient', name: '李四', age: 32, gender: '女', blood_type: 'O型' },
+        { id: 'P-003', type: 'Patient', name: '王五', age: 58, gender: '男', blood_type: 'B型' },
+        { id: 'D-001', type: 'Doctor', name: '赵医生', title: '主任医师', years: 20, dept: '心内科' },
+        { id: 'D-002', type: 'Doctor', name: '钱医生', title: '副主任医师', years: 12, dept: '神经科' },
+        { id: 'DEPT-001', type: 'Department', name: '心内科', level: '国家级', beds: 60, director: '赵医生' },
+        { id: 'DEPT-002', type: 'Department', name: '神经科', level: '省级', beds: 40, director: '钱医生' },
+        { id: 'MED-001', type: 'Medicine', name: '阿司匹林', category: '抗凝血', dosage: '100mg', side_effects: '胃肠道反应' },
+        { id: 'MED-002', type: 'Medicine', name: '阿莫西林', category: '抗生素', dosage: '500mg', side_effects: '过敏反应' },
+        { id: 'MED-003', type: 'Medicine', name: '布洛芬', category: '解热镇痛', dosage: '200mg', side_effects: '肝肾损伤' },
+        { id: 'DIAG-001', type: 'Diagnosis', name: '冠心病', icd_code: 'I25', severity: '中', chronic: true },
+        { id: 'DIAG-002', type: 'Diagnosis', name: '偏头痛', icd_code: 'G43', severity: '轻', chronic: false }
+      ],
+      relations: [
+        { source: 'P-001', target: 'D-001', label: '就诊', weight: 0.9 },
+        { source: 'P-002', target: 'D-002', label: '就诊', weight: 0.7 },
+        { source: 'P-003', target: 'D-001', label: '就诊', weight: 0.8 },
+        { source: 'D-001', target: 'DEPT-001', label: '所属', weight: 1.0 },
+        { source: 'D-002', target: 'DEPT-002', label: '所属', weight: 1.0 },
+        { source: 'P-001', target: 'DIAG-001', label: '确诊', weight: 0.9 },
+        { source: 'P-002', target: 'DIAG-002', label: '确诊', weight: 0.8 },
+        { source: 'P-003', target: 'DIAG-001', label: '确诊', weight: 0.9 },
+        { source: 'D-001', target: 'MED-001', label: '开具', weight: 0.9 },
+        { source: 'D-001', target: 'MED-003', label: '开具', weight: 0.6 },
+        { source: 'D-002', target: 'MED-002', label: '开具', weight: 0.8 },
+        { source: 'D-002', target: 'MED-003', label: '开具', weight: 0.7 },
+        { source: 'P-001', target: 'MED-001', label: '服用', weight: 0.9 },
+        { source: 'P-002', target: 'MED-002', label: '服用', weight: 0.8 },
+        { source: 'P-003', target: 'MED-001', label: '服用', weight: 0.9 },
+        { source: 'DEPT-001', target: 'DIAG-001', label: '专治', weight: 0.9 },
+        { source: 'DEPT-002', target: 'DIAG-002', label: '专治', weight: 0.9 },
+        { source: 'P-002', target: 'MED-003', label: '服用', weight: 0.5 }
+      ]
+    },
+    typeColors: { Patient: '#f43f5e', Doctor: '#3b82f6', Department: '#10b981', Medicine: '#f59e0b', Diagnosis: '#8b5cf6' },
+    typeIcons: { Patient: '🧑', Doctor: '👨\u200d\u2695\ufe0f', Department: '🏥', Medicine: '💊', Diagnosis: '📋' },
+    typeNames: { Patient: '患者', Doctor: '医生', Department: '科室', Medicine: '药品', Diagnosis: '诊断' },
+    linkDemos: [
+      { name: '患者就诊全流程', path: ['P-001','D-001','DEPT-001','DIAG-001','MED-001'],
+        steps: ['患者张三（45岁男性）到院挂号就诊','分诊至赵医生（心内科主任医师，20年经验）','赵医生隶属于心内科（国家级重点科室，60张床位）','经过检查确诊为冠心病（ICD:I25，慢性病）','治疗方案：开具阿司匹林100mg抗凝血'] },
+      { name: '疑似共病追踪', path: ['P-003','D-001','DEPT-001','DIAG-001','MED-001'],
+        steps: ['发现患者王五（58岁男性）同样就诊于赵医生','同样属于心内科诊疗范围','确诊为相同疾病：冠心病','考虑到年龄因素，同样使用阿司匹林治疗','两位冠心病患者需建立长期随访管理'] },
+      { name: '跨科室诊疗链路', path: ['P-002','D-002','DEPT-002','DIAG-002','MED-003'],
+        steps: ['患者李四（32岁女性）因头痛就诊','分诊至钱医生（神经科副主任医师）','神经科负责诊治头痛相关疾病（省级，40张床位）','诊断为偏头痛（ICD:G43）','开具布洛芬200mg进行对症镇痛治疗'] },
+      { name: '药品关联分析', path: ['MED-003','D-001','P-001','DIAG-001'],
+        steps: ['布洛芬是常用的解热镇痛药','赵医生在心内科也会为患者开具此药','患者张三正在服用布洛芬缓解症状','同时张三确诊冠心病，需注意药物相互作用'] }
+    ]
+  },
+  student: {
+    name: '学生关系',
+    data: {
+      entities: [
+        { id: 'STU-001', type: 'Student', name: '张同学', grade_level: '大三', major: '计算机科学', gpa: 3.8 },
+        { id: 'STU-002', type: 'Student', name: '李同学', grade_level: '大二', major: '人工智能', gpa: 3.2 },
+        { id: 'STU-003', type: 'Student', name: '王同学', grade_level: '大三', major: '计算机科学', gpa: 3.9 },
+        { id: 'CRS-001', type: 'Course', name: '数据结构', credits: 4, semester: '2026秋', difficulty: '高' },
+        { id: 'CRS-002', type: 'Course', name: '操作系统', credits: 3, semester: '2026秋', difficulty: '高' },
+        { id: 'CRS-003', type: 'Course', name: '人工智能', credits: 4, semester: '2026春', difficulty: '中' },
+        { id: 'TCH-001', type: 'Teacher', name: '陈教授', title: '教授', research: '算法与数据结构', years: 25 },
+        { id: 'TCH-002', type: 'Teacher', name: '刘教授', title: '副教授', research: '系统与安全', years: 15 },
+        { id: 'TCH-003', type: 'Teacher', name: '杨教授', title: '教授', research: '机器学习', years: 18 },
+        { id: 'COL-001', type: 'College', name: '计算机学院', dean: '张院长', students: 1200, established: 2000 },
+        { id: 'COL-002', type: 'College', name: '信息学院', dean: '李院长', students: 800, established: 2005 },
+        { id: 'SCR-001', type: 'Score', name: '数结95分', course: '数据结构', value: 95, rank: '前5%' },
+        { id: 'SCR-002', type: 'Score', name: 'OS78分', course: '操作系统', value: 78, rank: '前40%' },
+        { id: 'SCR-003', type: 'Score', name: 'AI92分', course: '人工智能', value: 92, rank: '前10%' }
+      ],
+      relations: [
+        { source: 'STU-001', target: 'CRS-001', label: '选修', weight: 0.9 },
+        { source: 'STU-001', target: 'CRS-002', label: '选修', weight: 0.7 },
+        { source: 'STU-002', target: 'CRS-002', label: '选修', weight: 0.8 },
+        { source: 'STU-002', target: 'CRS-003', label: '选修', weight: 0.9 },
+        { source: 'STU-003', target: 'CRS-001', label: '选修', weight: 0.9 },
+        { source: 'STU-003', target: 'CRS-003', label: '选修', weight: 0.8 },
+        { source: 'TCH-001', target: 'CRS-001', label: '讲授', weight: 1.0 },
+        { source: 'TCH-002', target: 'CRS-002', label: '讲授', weight: 1.0 },
+        { source: 'TCH-003', target: 'CRS-003', label: '讲授', weight: 1.0 },
+        { source: 'TCH-001', target: 'COL-001', label: '隶属', weight: 1.0 },
+        { source: 'TCH-002', target: 'COL-001', label: '隶属', weight: 1.0 },
+        { source: 'TCH-003', target: 'COL-002', label: '隶属', weight: 1.0 },
+        { source: 'STU-001', target: 'SCR-001', label: '获得', weight: 0.9 },
+        { source: 'STU-002', target: 'SCR-002', label: '获得', weight: 0.8 },
+        { source: 'STU-003', target: 'SCR-003', label: '获得', weight: 0.9 },
+        { source: 'CRS-001', target: 'SCR-001', label: '产出', weight: 0.9 },
+        { source: 'CRS-002', target: 'SCR-002', label: '产出', weight: 0.8 },
+        { source: 'CRS-003', target: 'SCR-003', label: '产出', weight: 0.9 },
+        { source: 'STU-001', target: 'COL-001', label: '就读', weight: 0.9 },
+        { source: 'STU-002', target: 'COL-002', label: '就读', weight: 0.9 }
+      ]
+    },
+    typeColors: { Student: '#f43f5e', Course: '#3b82f6', Teacher: '#10b981', College: '#f59e0b', Score: '#8b5cf6' },
+    typeIcons: { Student: '🎓', Course: '📖', Teacher: '👨\u200d🏫', College: '🏛\ufe0f', Score: '📊' },
+    typeNames: { Student: '学生', Course: '课程', Teacher: '教师', College: '学院', Score: '成绩' },
+    linkDemos: [
+      { name: '学生选课链路', path: ['STU-001','CRS-001','TCH-001','COL-001'],
+        steps: ['张同学（大三，GPA 3.8）选修数据结构','数据结构（4学分）由陈教授讲授','陈教授（25年教龄）隶属于计算机学院','体现了学生-课程-教师-学院的完整关联'] },
+      { name: '跨学院选课', path: ['STU-002','CRS-003','TCH-003','COL-002'],
+        steps: ['李同学（大二，人工智能专业）选修AI课程','人工智能（4学分）由杨教授讲授','杨教授（机器学习方向）隶属于信息学院','展示了跨学院选修的灵活性'] },
+      { name: '成绩优秀链路', path: ['STU-003','SCR-003','CRS-003','TCH-003'],
+        steps: ['王同学（GPA 3.9，专业排名前列）','在人工智能课程中获得92分（前10%）','该课程由杨教授精心设计授课','优秀学生与优质课程相互促进'] },
+      { name: '核心课程实力', path: ['CRS-001','TCH-001','COL-001','SCR-001'],
+        steps: ['数据结构是计算机学院的核心基础课','由资深教授陈老师（25年教龄）主讲','属于计算机学院重点建设课程','张同学取得95分（前5%）的优异成绩'] }
+    ]
+  },
+  banking: {
+    name: '银行风控',
+    data: {
+      entities: [
+        { id: 'CUS-001', type: 'Customer', name: '客户A', id_card: '310***1234', risk_score: 85, register_date: '2020-03-15' },
+        { id: 'CUS-002', type: 'Customer', name: '客户B', id_card: '440***5678', risk_score: 45, register_date: '2021-07-20' },
+        { id: 'ACC-001', type: 'Account', name: '账户A1', balance: 500000, type: '对公账户', status: '正常' },
+        { id: 'ACC-002', type: 'Account', name: '账户A2', balance: 120000, type: '个人账户', status: '冻结' },
+        { id: 'ACC-003', type: 'Account', name: '账户B1', balance: 80000, type: '个人账户', status: '正常' },
+        { id: 'TXN-001', type: 'Transaction', name: '大额转账', amount: 200000, time: '2026-07-20 14:30', channel: '网银' },
+        { id: 'TXN-002', type: 'Transaction', name: '频繁小额', amount: 5000, time: '2026-07-20', channel: 'ATM', count: 15 },
+        { id: 'TXN-003', type: 'Transaction', name: '异常提现', amount: 50000, time: '2026-07-21 03:15', channel: 'ATM' },
+        { id: 'RISK-001', type: 'RiskTag', name: '高风险', level: 3, trigger_count: 5, description: '存在洗钱嫌疑' },
+        { id: 'RISK-002', type: 'RiskTag', name: '中风险', level: 2, trigger_count: 2, description: '需持续监控' },
+        { id: 'RULE-001', type: 'Rule', name: '大额监控规则', threshold: '单笔>10万', action: '自动预警', severity: '高' },
+        { id: 'RULE-002', type: 'Rule', name: '频繁交易规则', threshold: '日>10笔', action: '延迟处理', severity: '中' }
+      ],
+      relations: [
+        { source: 'CUS-001', target: 'ACC-001', label: '持有', weight: 1.0 },
+        { source: 'CUS-001', target: 'ACC-002', label: '持有', weight: 1.0 },
+        { source: 'CUS-002', target: 'ACC-003', label: '持有', weight: 1.0 },
+        { source: 'ACC-001', target: 'TXN-001', label: '发生', weight: 0.9 },
+        { source: 'ACC-002', target: 'TXN-002', label: '发生', weight: 0.8 },
+        { source: 'ACC-003', target: 'TXN-003', label: '发生', weight: 0.9 },
+        { source: 'TXN-001', target: 'RISK-001', label: '触发', weight: 0.9 },
+        { source: 'TXN-002', target: 'RISK-002', label: '触发', weight: 0.7 },
+        { source: 'TXN-003', target: 'RISK-001', label: '触发', weight: 0.9 },
+        { source: 'RULE-001', target: 'TXN-001', label: '监控', weight: 0.9 },
+        { source: 'RULE-002', target: 'TXN-002', label: '监控', weight: 0.8 },
+        { source: 'RULE-001', target: 'TXN-003', label: '监控', weight: 0.9 },
+        { source: 'CUS-001', target: 'RISK-001', label: '标记', weight: 0.9 },
+        { source: 'CUS-002', target: 'RISK-002', label: '标记', weight: 0.7 },
+        { source: 'ACC-001', target: 'ACC-002', label: '关联', weight: 0.8 },
+        { source: 'TXN-001', target: 'ACC-003', label: '转入', weight: 0.6 }
+      ]
+    },
+    typeColors: { Customer: '#f43f5e', Account: '#3b82f6', Transaction: '#f59e0b', RiskTag: '#ef4444', Rule: '#8b5cf6' },
+    typeIcons: { Customer: '👤', Account: '🏦', Transaction: '💸', RiskTag: '\u26a0\ufe0f', Rule: '📋' },
+    typeNames: { Customer: '客户', Account: '账户', Transaction: '交易', RiskTag: '风险标签', Rule: '风控规则' },
+    linkDemos: [
+      { name: '大额转账风控', path: ['RULE-001','TXN-001','ACC-001','CUS-001','RISK-001'],
+        steps: ['大额监控规则（单笔>10万）持续监控交易','检测到账户A1发生20万大额转账（网银渠道）','账户A1属于客户A（对公账户，余额50万）','追溯到客户A，其风险评分已达85','自动标记为高风险（洗钱嫌疑），触发人工复核'] },
+      { name: '频繁交易识别', path: ['RULE-002','TXN-002','ACC-002','CUS-001'],
+        steps: ['频繁交易规则（日>10笔）检测到异常','账户A2当天发生15笔、共5万小额ATM取款','账户A2同样属于客户A（个人账户，已冻结）','结合大额转账记录，客户A风险等级需进一步提升'] },
+      { name: '跨账户资金追踪', path: ['CUS-001','ACC-001','TXN-001','ACC-003','CUS-002'],
+        steps: ['客户A持有对公账户A1（余额50万）','账户A1发起20万大额转账','资金流入账户B1（客户B的个人账户）','发现客户A与客户B之间存在资金关联','需进一步调查是否存在利益输送或洗钱行为'] },
+      { name: '异常提现预警', path: ['RULE-001','TXN-003','ACC-003','CUS-002','RISK-002'],
+        steps: ['凌晨3:15触发大额监控规则','客户B的账户B1发生5万异常ATM提现','非正常交易时间的大额操作','客户B被标记为中风险，需持续监控','建议暂时冻结账户并联系客户确认'] }
+    ]
+  },
+  fmcg: {
+    name: '快消供应链',
+    data: {
+      entities: [
+        { id: 'PRD-001', type: 'Product', name: '天然水550ml', price: 2.0, sales_month: 5000000, category: '饮用水' },
+        { id: 'PRD-002', type: 'Product', name: '茶π500ml', price: 5.0, sales_month: 2000000, category: '茶饮料' },
+        { id: 'PRD-003', type: 'Product', name: '东方树叶500ml', price: 5.0, sales_month: 1500000, category: '茶饮料' },
+        { id: 'RAW-001', type: 'RawMaterial', name: '天然水源', origin: '千岛湖/丹江口', quality: '优', daily_capacity: '10万吨' },
+        { id: 'RAW-002', type: 'RawMaterial', name: '茶叶', origin: '福建/安徽', quality: '特级', daily_capacity: '50吨' },
+        { id: 'RAW-003', type: 'RawMaterial', name: '白砂糖', origin: '广西', quality: '一级', daily_capacity: '200吨' },
+        { id: 'FSUP-001', type: 'Supplier', name: '武夷山水源厂', location: '福建', cert: 'ISO22000', rating: 4.8 },
+        { id: 'FSUP-002', type: 'Supplier', name: '安徽茶厂', location: '安徽', cert: '有机认证', rating: 4.5 },
+        { id: 'FSUP-003', type: 'Supplier', name: '广西糖业', location: '广西', cert: 'ISO9001', rating: 4.3 },
+        { id: 'FAC-001', type: 'Factory', name: '千岛湖工厂', location: '浙江', capacity: '500万瓶/日', workers: 800 },
+        { id: 'FAC-002', type: 'Factory', name: '丹江口工厂', location: '湖北', capacity: '300万瓶/日', workers: 500 },
+        { id: 'DIS-001', type: 'Distributor', name: '华东经销商', region: '华东', coverage: '5省', fleet: 200 },
+        { id: 'DIS-002', type: 'Distributor', name: '华南经销商', region: '华南', coverage: '4省', fleet: 150 },
+        { id: 'RET-001', type: 'Retailer', name: '永辉超市', stores: 1200, type: '大型连锁', channels: '线上+线下' },
+        { id: 'RET-002', type: 'Retailer', name: '7-11便利店', stores: 3000, type: '便利店', channels: '线下' }
+      ],
+      relations: [
+        { source: 'RAW-001', target: 'PRD-001', label: '用于', weight: 0.9 },
+        { source: 'RAW-002', target: 'PRD-002', label: '用于', weight: 0.8 },
+        { source: 'RAW-002', target: 'PRD-003', label: '用于', weight: 0.8 },
+        { source: 'RAW-003', target: 'PRD-002', label: '用于', weight: 0.7 },
+        { source: 'FSUP-001', target: 'RAW-001', label: '提供', weight: 0.9 },
+        { source: 'FSUP-002', target: 'RAW-002', label: '提供', weight: 0.9 },
+        { source: 'FSUP-003', target: 'RAW-003', label: '提供', weight: 0.8 },
+        { source: 'FSUP-001', target: 'FAC-001', label: '供货', weight: 0.8 },
+        { source: 'FSUP-002', target: 'FAC-002', label: '供货', weight: 0.7 },
+        { source: 'FSUP-003', target: 'FAC-002', label: '供货', weight: 0.7 },
+        { source: 'FAC-001', target: 'PRD-001', label: '生产', weight: 0.9 },
+        { source: 'FAC-001', target: 'PRD-002', label: '生产', weight: 0.8 },
+        { source: 'FAC-002', target: 'PRD-003', label: '生产', weight: 0.9 },
+        { source: 'FAC-002', target: 'PRD-002', label: '生产', weight: 0.5 },
+        { source: 'FAC-001', target: 'DIS-001', label: '供货', weight: 0.9 },
+        { source: 'FAC-002', target: 'DIS-002', label: '供货', weight: 0.9 },
+        { source: 'DIS-001', target: 'RET-001', label: '分销', weight: 0.9 },
+        { source: 'DIS-002', target: 'RET-002', label: '分销', weight: 0.9 },
+        { source: 'DIS-001', target: 'RET-002', label: '分销', weight: 0.6 }
+      ]
+    },
+    typeColors: { Product: '#06b6d4', RawMaterial: '#10b981', Supplier: '#3b82f6', Factory: '#f59e0b', Distributor: '#8b5cf6', Retailer: '#f43f5e' },
+    typeIcons: { Product: '🥤', RawMaterial: '🌿', Supplier: '🏭', Factory: '🏗\ufe0f', Distributor: '🚚', Retailer: '🏪' },
+    typeNames: { Product: '产品', RawMaterial: '原料', Supplier: '供应商', Factory: '工厂', Distributor: '经销商', Retailer: '零售商' },
+    linkDemos: [
+      { name: '水源全链路追溯', path: ['PRD-001','FAC-001','FSUP-001','RAW-001'],
+        steps: ['消费者购买天然水550ml（月销500万瓶）','产品由千岛湖工厂生产（日产能500万瓶）','水源由武夷山水源厂提供（ISO22000认证，评分4.8）','最终追溯到千岛湖/丹江口天然水源地'] },
+      { name: '茶叶供应链', path: ['PRD-002','FAC-001','FSUP-002','RAW-002'],
+        steps: ['消费者购买茶π500ml（月销200万瓶）','由千岛湖工厂灌装生产','茶叶原料来自安徽茶厂（有机认证，评分4.5）','原料为福建/安徽特级茶叶'] },
+      { name: '终端到工厂追溯', path: ['RET-001','DIS-001','FAC-001','PRD-001'],
+        steps: ['永辉超市（1200家门店，线上+线下渠道）','由华东经销商配送（覆盖5省，200辆车队）','产品来自千岛湖工厂','实现从零售终端到生产工厂的完整追溯'] },
+      { name: '品质问题排查', path: ['PRD-003','FAC-002','FSUP-002','RAW-002'],
+        steps: ['东方树叶500ml出现品质问题（月销150万瓶）','追溯至丹江口工厂（日产能300万瓶）','茶叶原料来自安徽茶厂','定位到茶叶原料批次，进行质量排查和下架处理'] },
+      { name: '跨区域分销链路', path: ['PRD-002','FAC-001','DIS-001','RET-002'],
+        steps: ['7-11便利店（全国3000家门店）销售茶π','通过华东经销商采购配送','产品由千岛湖工厂生产','实现了从工厂到全国便利店的高效分销网络'] }
+    ]
+  }
+};
 const EVOLUTION_STAGES = [
   {
     stage: 0, name: '混乱期', team_size: '1-2', alias_range: '0-5', storage: '无统一存储',
@@ -2274,11 +2581,11 @@ const COURSEWARE_SLIDES = [
   { title: '什么是本体论？', subtitle: 'Ontology 起源于哲学领域', type: 'content', content: '<p>本体论（Ontology）最初是哲学的一个分支，研究"存在"的本质。</p><p>在计算机科学中，本体是对领域知识的<strong>形式化描述</strong>，定义了概念、概念之间的关系以及概念的属性。</p><ul><li>概念（Class）：如"供应商"、"仓库"</li><li>关系（Relation）：如"供应"、"存储"</li><li>属性（Property）：如"名称"、"位置"</li></ul>', notes: ['重点解释"形式化描述"的含义', '用学生容易理解的语言：本体就是给知识建立"字典"', '预计用时：5分钟'] },
   { title: '为什么需要本体？', subtitle: '数据整合与知识管理的核心', type: 'content', content: '<ul><li>解决<strong>别名混乱</strong>问题：同一事物不同名称</li><li>实现<strong>跨系统数据整合</strong>：打破数据孤岛</li><li>支持<strong>智能推理</strong>：从已有知识推导新知识</li><li>促进<strong>人机协作</strong>：让机器理解业务语义</li><li>构建<strong>知识图谱</strong>：可视化知识网络</li></ul>', notes: ['用汽车供应链案例说明别名混乱问题', '强调"别名"是本体论解决的首要问题', '预计用时：5分钟'] },
   { title: '知识图谱基础', subtitle: '实体-关系-属性的三元组模型', type: 'content', content: '<p>知识图谱由<strong>三元组（Triple）</strong>构成：</p><p><strong>主体 — 关系 — 客体</strong></p><ul><li>华东精密 — 供应 — 上海主仓库</li><li>上海主仓库 — 支撑 — 发动机组装工单</li><li>发动机组装工单 — 需求 — 发动机总成</li></ul><p>大量三元组构成了复杂的知识网络。</p>', notes: ['在黑板上画出简单的三元组图', '让学生举例自己领域中的三元组', '预计用时：8分钟'] },
-  { title: '案例：汽车供应链', subtitle: 'OntoFlow 方案介绍', type: 'content', content: '<p>以汽车制造供应链为例：</p><ul><li><strong>实体</strong>：供应商、仓库、工单、物料、客户</li><li><strong>关系</strong>：供应、支撑、需求、生产</li><li><strong>属性</strong>：名称、区域、风险等级、库存量</li></ul><p>通过本体知识图谱，实现供应商风险自动评估、召回影响分析等智能功能。</p>', notes: ['展示知识图谱页面的可视化效果', '让学生感受图谱的直观性', '预计用时：5分钟'] },
+  { title: '案例：汽车供应链', subtitle: 'ontoCHQ 方案介绍', type: 'content', content: '<p>以汽车制造供应链为例：</p><ul><li><strong>实体</strong>：供应商、仓库、工单、物料、客户</li><li><strong>关系</strong>：供应、支撑、需求、生产</li><li><strong>属性</strong>：名称、区域、风险等级、库存量</li></ul><p>通过本体知识图谱，实现供应商风险自动评估、召回影响分析等智能功能。</p>', notes: ['展示知识图谱页面的可视化效果', '让学生感受图谱的直观性', '预计用时：5分钟'] },
   { title: '本体建模方法', subtitle: '自顶向下 vs 自底向上', type: 'content', content: '<p><strong>自顶向下</strong>：先定义领域的高层概念框架，再逐步细化</p><p><strong>自底向上</strong>：从具体数据实例出发，归纳总结概念和关系</p><ul><li>自顶向下适合：领域知识成熟的场景</li><li>自底向上适合：探索性、创新性项目</li><li>实际中常采用<strong>中间相遇</strong>策略</li></ul>', notes: ['对比两种方法的优缺点', '建议学生先尝试自底向上', '预计用时：5分钟'] },
   { title: '实体类型设计', subtitle: '如何定义本体中的概念', type: 'content', content: '<p>定义实体类型需要考虑：</p><ul><li><strong>唯一标识</strong>：每个实体需要一个稳定的 ID</li><li><strong>属性集合</strong>：实体有哪些可描述的特征</li><li><strong>关系约束</strong>：实体之间可以建立哪些关系</li><li><strong>层次结构</strong>：是否存在父子类继承</li></ul><p>好的实体设计应该：稳定、完整、最小化。</p>', notes: ['用"供应商"实体作为例子详细讲解', '强调"唯一标识"的重要性', '预计用时：8分钟'] },
   { title: '关系类型设计', subtitle: '连接实体的桥梁', type: 'content', content: '<p>关系类型的关键设计要素：</p><ul><li><strong>关系名称</strong>：语义明确的动词（供应、支撑、需求）</li><li><strong>基数约束</strong>：1:1, 1:N, N:M</li><li><strong>关系属性</strong>：权重、置信度等</li><li><strong>可传递性</strong>：关系是否可以沿链传播</li></ul><p>关系是本体推理的基础！</p>', notes: ['讲解"传递性"是推理的关键', '用"供应商→仓库→工单"链为例', '预计用时：6分钟'] },
-  { title: '函数体系概述', subtitle: 'Aggregate - Derive - Action', type: 'content', content: '<p>OntoFlow 的三类核心函数：</p><ul><li><strong>聚合函数（Aggregate）</strong>：跨系统数据融合，合并同名实体的数据</li><li><strong>推导函数（Derive）</strong>：基于关系链进行推理，计算风险传播</li><li><strong>行动函数（Action）</strong>：基于推理结果触发业务行动</li></ul><p>三类函数组成<strong>推理链</strong>，实现智能决策。</p>', notes: ['这是课程的核心内容之一', '强调函数链的组合使用', '预计用时：10分钟'] },
+  { title: '函数体系概述', subtitle: 'Aggregate - Derive - Action', type: 'content', content: '<p>ontoCHQ 的三类核心函数：</p><ul><li><strong>聚合函数（Aggregate）</strong>：跨系统数据融合，合并同名实体的数据</li><li><strong>推导函数（Derive）</strong>：基于关系链进行推理，计算风险传播</li><li><strong>行动函数（Action）</strong>：基于推理结果触发业务行动</li></ul><p>三类函数组成<strong>推理链</strong>，实现智能决策。</p>', notes: ['这是课程的核心内容之一', '强调函数链的组合使用', '预计用时：10分钟'] },
   { title: '聚合函数详解', subtitle: 'Aggregate Function', type: 'content', content: '<p>聚合函数的核心任务：</p><ul><li>通过别名匹配识别同一实体</li><li>合并来自多个系统的数据</li><li>计算统计指标（总量、均值、趋势）</li><li>处理数据冲突（取最新、取最可信）</li></ul><p>示例：将 ERP 和 WMS 中同一供应商的供货数据合并。</p>', notes: ['现场演示函数演示页面中的聚合功能', '让学生观察不同区域的数据聚合结果', '预计用时：8分钟'] },
   { title: '推导函数详解', subtitle: 'Derive Function', type: 'content', content: '<p>推导函数实现关系链推理：</p><ul><li>沿关系链逐层传播风险/状态</li><li>计算传播强度和影响范围</li><li>识别关键路径和瓶颈节点</li><li>支持反向推导（根因分析）</li></ul><p>示例：供应商质量风险 → 仓库库存影响 → 工单延误评估。</p>', notes: ['用推导函数演示页面展示风险传播动画', '让学生理解"沿链传播"的概念', '预计用时：8分钟'] },
   { title: '行动函数详解', subtitle: 'Action Function', type: 'content', content: '<p>行动函数将推理转化为行动：</p><ul><li>生成替代方案（替代供应商推荐）</li><li>触发工作流（库存调拨、工单调整）</li><li>发送通知（预警、报告）</li><li>更新本体状态（实体属性变更）</li></ul><p>召回模拟是一个典型的行动函数应用场景。</p>', notes: ['现场演示召回模拟功能', '让学生输入不同的召回数量观察结果变化', '预计用时：8分钟'] },
@@ -2380,6 +2687,12 @@ let appState = {
   kgDragNode: null,
   kgIsDragging: false,
   kgAnimFrame: null,
+  currentScene: 'auto_supply',
+  highlightedNodeIds: new Set(),
+  highlightedEdgeIndices: new Set(),
+  linkDemoPlaying: false,
+  currentLinkDemo: -1,
+  kgEventsInitialized: false,
   // Modeling state
   modelTool: 'select',
   modelNodes: [],
@@ -2448,17 +2761,7 @@ function updateUserUI() {
   updateCoursewareMode();
 }
 
-function toggleRole() {
-  if (!appState.currentUser) return;
-  const roles = ['teacher', 'student', 'admin'];
-  const currentIdx = roles.indexOf(appState.currentUser.role);
-  const nextRole = roles[(currentIdx + 1) % roles.length];
-  appState.currentUser.role = nextRole;
-  const user = USERS.find(u => u.username === appState.currentUser.username);
-  user.role = nextRole;
-  updateUserUI();
-  showToast(`角色已切换为：${nextRole === 'teacher' ? '教师' : nextRole === 'student' ? '学生' : '管理员'}`, 'info');
-}
+// toggleRole removed - fixed teacher role
 
 function updateCoursewareMode() {
   const isTeacher = appState.currentUser && (appState.currentUser.role === 'teacher' || appState.currentUser.role === 'admin');
@@ -2487,7 +2790,7 @@ function navigateTo(pageId) {
   if (navItem) navItem.classList.add('active');
   appState.currentPage = pageId;
   // Init specific pages
-  if (pageId === 'kgPage') initKnowledgeGraph();
+  if (pageId === 'kgPage' && appState.kgNodes.length === 0) initKnowledgeGraph();
   if (pageId === 'evolutionPage') initEvolutionPage();
   if (pageId === 'coursewarePage') { initCourseware(); updateCoursewareMode(); }
   if (pageId === 'decisionPage') initDecisionTool();
@@ -2560,19 +2863,37 @@ function initStarfield(canvasId) {
 // KNOWLEDGE GRAPH MODULE
 // ============================================================
 
-function initKnowledgeGraph() {
-  if (appState.kgNodes.length > 0) return;
+function initKnowledgeGraph(sceneKey) {
+  sceneKey = sceneKey || appState.currentScene || 'auto_supply';
+  appState.currentScene = sceneKey;
+  const scene = SCENES[sceneKey];
+  if (!scene) return;
+  // Clear existing state
+  appState.kgNodes = [];
+  appState.kgEdges = [];
+  appState.highlightedNodeIds = new Set();
+  appState.highlightedEdgeIndices = new Set();
+  appState.linkDemoPlaying = false;
+  appState.currentLinkDemo = -1;
+  appState.selectedNode = null;
+  appState.kgZoom = 1;
+  appState.kgPanX = 0;
+  appState.kgPanY = 0;
+  // Hide reasoning panel
+  const rp = document.getElementById('reasoningPanel');
+  if (rp) rp.classList.remove('active');
   const canvas = document.getElementById('kgCanvas');
   const rect = canvas.parentElement.getBoundingClientRect();
   canvas.width = rect.width;
   canvas.height = rect.height;
   const cx = canvas.width / 2;
   const cy = canvas.height / 2;
-  const typeColors = { Supplier: '#3b82f6', Warehouse: '#10b981', WorkOrder: '#f59e0b', Material: '#8b5cf6', Customer: '#06b6d4' };
-  const typeIcons = { Supplier: '🏭', Warehouse: '🏪', WorkOrder: '📋', Material: '📦', Customer: '👤' };
+  const typeColors = scene.typeColors || {};
+  const typeIcons = scene.typeIcons || {};
+  const ontoData = scene.data;
   // Create nodes
-  AUTO_ONTOLOGY.entities.forEach((e, i) => {
-    const angle = (i / AUTO_ONTOLOGY.entities.length) * Math.PI * 2;
+  ontoData.entities.forEach((e, i) => {
+    const angle = (i / ontoData.entities.length) * Math.PI * 2;
     const radius = 200 + Math.random() * 150;
     appState.kgNodes.push({
       id: e.id, type: e.type, name: e.name, data: e,
@@ -2583,7 +2904,7 @@ function initKnowledgeGraph() {
     });
   });
   // Create edges
-  AUTO_ONTOLOGY.relations.forEach(r => {
+  ontoData.relations.forEach(r => {
     const src = appState.kgNodes.find(n => n.id === r.source);
     const tgt = appState.kgNodes.find(n => n.id === r.target);
     if (src && tgt) {
@@ -2597,12 +2918,18 @@ function initKnowledgeGraph() {
       edge.particles.push({ t: Math.random(), speed: 0.002 + Math.random() * 0.003 });
     }
   });
-  // Mouse events
-  canvas.addEventListener('mousedown', kgMouseDown);
-  canvas.addEventListener('mousemove', kgMouseMove);
-  canvas.addEventListener('mouseup', kgMouseUp);
-  canvas.addEventListener('wheel', kgWheel);
-  canvas.addEventListener('dblclick', kgDblClick);
+  // Update legend and link demo buttons
+  updateLegend(scene);
+  updateLinkDemoButtons(scene);
+  // Mouse events (bind once)
+  if (!appState.kgEventsInitialized) {
+    canvas.addEventListener('mousedown', kgMouseDown);
+    canvas.addEventListener('mousemove', kgMouseMove);
+    canvas.addEventListener('mouseup', kgMouseUp);
+    canvas.addEventListener('wheel', kgWheel);
+    canvas.addEventListener('dblclick', kgDblClick);
+    appState.kgEventsInitialized = true;
+  }
   kgAnimate();
 }
 
@@ -2664,13 +2991,17 @@ function kgAnimate() {
   ctx.scale(appState.kgZoom, appState.kgZoom);
 
   // Draw edges
-  appState.kgEdges.forEach(e => {
+  appState.kgEdges.forEach((e, eIdx) => {
     ctx.beginPath();
     ctx.moveTo(e.source.x, e.source.y);
     ctx.lineTo(e.target.x, e.target.y);
-    ctx.strokeStyle = `rgba(100,116,139,${0.2 + e.weight * 0.2})`;
-    ctx.lineWidth = 1 + e.weight;
+    const eHl = appState.highlightedEdgeIndices.has(eIdx);
+    const eDim = appState.linkDemoPlaying && !eHl;
+    if (eHl) { ctx.strokeStyle = "#60a5fa"; ctx.lineWidth = 3 + e.weight * 2; ctx.shadowColor = "#3b82f6"; ctx.shadowBlur = 15; }
+    else if (eDim) { ctx.strokeStyle = "rgba(100,116,139,0.06)"; ctx.lineWidth = 1; ctx.shadowBlur = 0; }
+    else { ctx.strokeStyle = `rgba(100,116,139,${0.2 + e.weight * 0.2})`; ctx.lineWidth = 1 + e.weight; ctx.shadowBlur = 0; }
     ctx.stroke();
+    ctx.shadowBlur = 0;
     // Particles
     if (appState.showParticles) {
       e.particles.forEach(p => {
@@ -2695,11 +3026,11 @@ function kgAnimate() {
       });
     }
     // Label
-    if (appState.showLabels) {
+    if (appState.showLabels && !eDim) {
       const mx = (e.source.x + e.target.x) / 2;
       const my = (e.source.y + e.target.y) / 2;
       ctx.font = '10px "Noto Sans SC"';
-      ctx.fillStyle = 'rgba(100,116,139,0.7)';
+      ctx.fillStyle = eHl ? '#ffffff' : 'rgba(100,116,139,0.7)';
       ctx.textAlign = 'center';
       ctx.fillText(e.label, mx, my - 5);
     }
@@ -2708,26 +3039,33 @@ function kgAnimate() {
   // Draw nodes
   appState.kgNodes.forEach(n => {
     const r = 20;
+    const nHl = appState.highlightedNodeIds.has(n.id);
+    const nDim = appState.linkDemoPlaying && !nHl;
+    if (nDim) ctx.globalAlpha = 0.12;
     // Glow
-    const grad = ctx.createRadialGradient(n.x, n.y, r * 0.5, n.x, n.y, r * 2.5);
-    grad.addColorStop(0, n.color + '33');
+    const glowR = nHl ? r * 4.5 : r * 2.5;
+    const grad = ctx.createRadialGradient(n.x, n.y, r * 0.5, n.x, n.y, glowR);
+    grad.addColorStop(0, n.color + (nHl ? '66' : '33'));
     grad.addColorStop(1, 'transparent');
     ctx.beginPath();
-    ctx.arc(n.x, n.y, r * 2.5, 0, Math.PI * 2);
+    ctx.arc(n.x, n.y, glowR, 0, Math.PI * 2);
     ctx.fillStyle = grad;
     ctx.fill();
     // Circle
+    const nodeR = nHl ? r * 1.3 : r;
     ctx.beginPath();
-    ctx.arc(n.x, n.y, r, 0, Math.PI * 2);
-    ctx.fillStyle = n.color + '22';
+    ctx.arc(n.x, n.y, nodeR, 0, Math.PI * 2);
+    ctx.fillStyle = n.color + (nHl ? '44' : '22');
     ctx.fill();
-    ctx.strokeStyle = n.color;
-    ctx.lineWidth = 2;
+    if (nHl) { ctx.shadowColor = n.color; ctx.shadowBlur = 20; }
+    ctx.strokeStyle = nHl ? '#ffffff' : n.color;
+    ctx.lineWidth = nHl ? 3 : 2;
     ctx.stroke();
+    ctx.shadowBlur = 0;
     // Selected
     if (appState.selectedNode && appState.selectedNode.id === n.id) {
       ctx.beginPath();
-      ctx.arc(n.x, n.y, r + 4, 0, Math.PI * 2);
+      ctx.arc(n.x, n.y, nodeR + 4, 0, Math.PI * 2);
       ctx.strokeStyle = '#fff';
       ctx.lineWidth = 2;
       ctx.setLineDash([4, 4]);
@@ -2735,20 +3073,22 @@ function kgAnimate() {
       ctx.setLineDash([]);
     }
     // Icon text
-    ctx.font = '14px sans-serif';
+    ctx.font = (nHl ? '16' : '14') + 'px sans-serif';
     ctx.textAlign = 'center';
     ctx.textBaseline = 'middle';
-    ctx.fillStyle = n.color;
+    ctx.fillStyle = nHl ? '#ffffff' : n.color;
     ctx.fillText(n.icon, n.x, n.y);
     // Label
     if (appState.showLabels) {
       ctx.font = '11px "Noto Sans SC"';
-      ctx.fillStyle = '#e2e8f0';
+      ctx.fillStyle = nHl ? '#ffffff' : '#e2e8f0';
       ctx.textBaseline = 'top';
-      ctx.fillText(n.name, n.x, n.y + r + 4);
+      ctx.fillText(n.name, n.x, n.y + nodeR + 4);
     }
+    if (nDim) ctx.globalAlpha = 1;
   });
 
+  ctx.globalAlpha = 1;
   ctx.restore();
   appState.kgAnimFrame = requestAnimationFrame(kgAnimate);
 }
@@ -2817,7 +3157,8 @@ function showKgNodeDetails(node) {
   const panel = document.getElementById('kgRightPanel');
   const details = document.getElementById('kgNodeDetails');
   panel.style.display = 'block';
-  const typeMap = { Supplier:'供应商', Warehouse:'仓库', WorkOrder:'工单', Material:'物料', Customer:'客户' };
+  const scene = SCENES[appState.currentScene];
+  const typeMap = scene ? scene.typeNames : { Supplier:'供应商', Warehouse:'仓库', WorkOrder:'工单', Material:'物料', Customer:'客户' };
   let html = `<div class="kg-prop-item"><span class="kg-prop-key">ID</span><span class="kg-prop-val">${node.id}</span></div>`;
   html += `<div class="kg-prop-item"><span class="kg-prop-key">名称</span><span class="kg-prop-val">${node.name}</span></div>`;
   html += `<div class="kg-prop-item"><span class="kg-prop-key">类型</span><span class="kg-prop-val">${typeMap[node.type]||node.type}</span></div>`;
@@ -2847,8 +3188,9 @@ function kgToggleParticles() { appState.showParticles = !appState.showParticles;
 
 function openEntityModal(node) {
   document.getElementById('entityModalTitle').textContent = node.name + ' — 详情';
+  const scene = SCENES[appState.currentScene];
+  const typeMap = scene ? scene.typeNames : { Supplier:'供应商', Warehouse:'仓库', WorkOrder:'工单', Material:'物料', Customer:'客户' };
   let html = '<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">';
-  const typeMap = { Supplier:'供应商', Warehouse:'仓库', WorkOrder:'工单', Material:'物料', Customer:'客户' };
   html += `<div class="kg-prop-item"><span class="kg-prop-key">类型</span><span class="kg-prop-val">${typeMap[node.type]||node.type}</span></div>`;
   if (node.data) {
     Object.entries(node.data).forEach(([k,v]) => {
@@ -3062,7 +3404,7 @@ function modelLoad() {
 }
 
 function modelExportYaml() {
-  let yaml = '# Ontology Model Export\n# Generated by OntoFlow Platform\n\n';
+  let yaml = '# Ontology Model Export\n# Generated by ontoCHQ Platform\n\n';
   yaml += 'entities:\n';
   appState.modelNodes.forEach(n => {
     yaml += `  - id: ${n.id}\n    type: ${n.type}\n    name: ${n.name}\n    properties:\n`;
@@ -3596,6 +3938,96 @@ document.querySelectorAll('.modal-overlay').forEach(overlay => {
 });
 
 // ============================================================
+// SCENE SWITCHING & LINK DEMO MODULE
+// ============================================================
+
+function switchScene(sceneKey) {
+  if (appState.currentLinkDemo >= 0 || appState.linkDemoPlaying) clearHighlight();
+  document.querySelectorAll('.scene-tab').forEach(tab => {
+    tab.classList.toggle('active', tab.textContent === SCENES[sceneKey].name);
+  });
+  initKnowledgeGraph(sceneKey);
+  showToast('已切换至：' + SCENES[sceneKey].name, 'info');
+}
+
+function updateLegend(scene) {
+  const legend = document.getElementById('kgLegend');
+  if (!legend || !scene) return;
+  let html = '';
+  for (const [type, color] of Object.entries(scene.typeColors)) {
+    html += '<div class="kg-legend-item"><div class="kg-legend-color" style="background:' + color + ';"></div>' + (scene.typeNames[type]||type) + '</div>';
+  }
+  legend.innerHTML = html;
+}
+
+function updateLinkDemoButtons(scene) {
+  const panel = document.getElementById('linkDemoPanel');
+  if (!panel || !scene) return;
+  let html = '<div class="link-demo-header">一键链路演示</div>';
+  scene.linkDemos.forEach((demo, idx) => {
+    html += '<button class="link-demo-btn" onclick="playLinkDemo(' + idx + ')">' + demo.name + '</button>';
+  });
+  panel.innerHTML = html;
+}
+
+function clearHighlight() {
+  appState.highlightedNodeIds = new Set();
+  appState.highlightedEdgeIndices = new Set();
+  appState.linkDemoPlaying = false;
+  appState.currentLinkDemo = -1;
+  const rp = document.getElementById('reasoningPanel');
+  if (rp) rp.classList.remove('active');
+  document.querySelectorAll('.link-demo-btn').forEach(b => b.classList.remove('active'));
+}
+
+function playLinkDemo(demoIndex) {
+  const scene = SCENES[appState.currentScene];
+  if (!scene || !scene.linkDemos[demoIndex]) return;
+  const demo = scene.linkDemos[demoIndex];
+  if (appState.currentLinkDemo === demoIndex) { clearHighlight(); return; }
+  appState.currentLinkDemo = demoIndex;
+  appState.linkDemoPlaying = true;
+  appState.highlightedNodeIds = new Set();
+  appState.highlightedEdgeIndices = new Set();
+  document.querySelectorAll('.link-demo-btn').forEach((b, i) => b.classList.toggle('active', i === demoIndex));
+  const rp = document.getElementById('reasoningPanel');
+  const rs = document.getElementById('reasoningSteps');
+  if (rp && rs) {
+    let html = '';
+    demo.steps.forEach((step, i) => { html += '<div class="reasoning-step" id="step' + i + '"><span class="step-num">' + (i+1) + '</span>' + step + '</div>'; });
+    rs.innerHTML = html;
+    rp.classList.add('active');
+  }
+  demo.path.forEach((nodeId, stepIdx) => {
+    setTimeout(() => {
+      appState.highlightedNodeIds.add(nodeId);
+      if (stepIdx > 0) {
+        const prevId = demo.path[stepIdx - 1];
+        for (let eIdx = 0; eIdx < appState.kgEdges.length; eIdx++) {
+          const e = appState.kgEdges[eIdx];
+          if ((e.source.id===prevId&&e.target.id===nodeId)||(e.target.id===prevId&&e.source.id===nodeId)) { appState.highlightedEdgeIndices.add(eIdx); break; }
+        }
+      }
+      demo.steps.forEach((_, si) => {
+        const el = document.getElementById('step' + si);
+        if (!el) return;
+        el.classList.remove('active', 'done');
+        if (si < stepIdx) el.classList.add('done');
+        else if (si === stepIdx) el.classList.add('active');
+      });
+      if (stepIdx === demo.path.length - 1) {
+        setTimeout(() => {
+          demo.steps.forEach((_, si) => {
+            const el = document.getElementById('step' + si);
+            if (el) { el.classList.remove('active'); el.classList.add('done'); }
+          });
+        }, 800);
+      }
+    }, stepIdx * 900);
+  });
+}
+
+// ============================================================
 // APP INITIALIZATION
 // ============================================================
 
@@ -3611,8 +4043,11 @@ function initApp() {
 window.addEventListener('load', () => {
   initStarfield('loginCanvas');
   init3DSphere();
-  // Auto focus username
-  document.getElementById('loginUser').focus();
+  if (document.getElementById('loginOverlay') && document.getElementById('loginOverlay').style.display !== 'none') {
+    document.getElementById('loginUser').value = 'teacher';
+    document.getElementById('loginPass').value = 'teacher123';
+    setTimeout(() => handleLogin(), 500);
+  }
 });
 
 // Handle window resize for KG canvas
